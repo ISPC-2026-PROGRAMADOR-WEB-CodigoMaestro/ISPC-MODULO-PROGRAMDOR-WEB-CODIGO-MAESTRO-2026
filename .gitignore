@@ -1,0 +1,38 @@
+# =========================
+# 🔐 Variables sensibles
+# =========================
+.env
+
+# =========================
+# 🐍 Python / Django (Backend)
+# =========================
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+venv/
+env/
+
+# Base de datos local
+db.sqlite3
+
+# Logs
+*.log
+
+# =========================
+# ⚛️ Angular (Frontend)
+# =========================
+node_modules/
+dist/
+.angular/
+
+# =========================
+# 🧰 Editor (VS Code)
+# =========================
+.vscode/
+
+# =========================
+# 💻 Sistema
+# =========================
+.DS_Store
+Thumbs.db
