@@ -2,5 +2,5 @@ from django.urls import path
 from .views import prueba_db
 
 urlpatterns = [
-    path('prueba-db/', prueba_db),
+    path('prueba/', prueba_db),
 ]
