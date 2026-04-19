@@ -10,6 +10,21 @@ Frente a esta problemática, el proyecto propone una plataforma web 🌐 que fun
 
 La propuesta de valor de ServiMatch se basa en brindar mayor confianza 🤝, seguridad 🔐 y transparencia en el proceso de contratación, incorporando diferenciales como la verificación de identidad 🪪, el historial de trabajos realizados 🧾 y un sistema de contacto directo entre cliente y profesional. De esta manera, se busca mejorar la experiencia de los usuarios 😊 y ofrecer una solución más confiable y organizada para contratar servicios de oficios.
 
+## Especificación de Requerimientos
+
+### Requerimientos Funcionales (Plataforma de Oficios Verificados)
+
+**RF1:** El usuario podrá registrarse e iniciar sesión en la plataforma mediante credenciales.
+
+**RF2:** El usuario podrá buscar profesionales según el tipo de oficio y la ubicación.
+
+**RF3:** El usuario podrá visualizar el perfil de cada profesional, incluyendo datos personales, experiencia, calificaciones y trabajos realizados.
+
+**RF4:** El usuario podrá contactar directamente al profesional a través de la plataforma.
+
+**RF5:** El administrador podrá validar perfiles de profesionales y gestionar los usuarios registrados.
+
+
 Requerimientos no funcionales
 
 RNF-1: Diseño Responsivo: La interfaz debe adaptarse automáticamente a pantallas de móviles, tablets y computadoras (usando los breakpoints de Bootstrap).
