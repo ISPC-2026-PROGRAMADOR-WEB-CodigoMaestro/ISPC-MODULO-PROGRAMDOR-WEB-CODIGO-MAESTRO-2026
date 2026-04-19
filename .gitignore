@@ -8,12 +8,10 @@ __pycache__/
 *.pyd
 venv/
 env/
-mi_app/
-Backend/mi_app/
 
 # Base de datos local
 db.sqlite3
-Backend/db.sqlite3
+*.sqlite3
 
 # Logs
 *.log
