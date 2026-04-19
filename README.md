@@ -10,3 +10,10 @@ Frente a esta problemática, el proyecto propone una plataforma web 🌐 que fun
 
 La propuesta de valor de ServiMatch se basa en brindar mayor confianza 🤝, seguridad 🔐 y transparencia en el proceso de contratación, incorporando diferenciales como la verificación de identidad 🪪, el historial de trabajos realizados 🧾 y un sistema de contacto directo entre cliente y profesional. De esta manera, se busca mejorar la experiencia de los usuarios 😊 y ofrecer una solución más confiable y organizada para contratar servicios de oficios.
 
+Requerimientos no funcionales
+
+RNF-1: Diseño Responsivo: La interfaz debe adaptarse automáticamente a pantallas de móviles, tablets y computadoras (usando los breakpoints de Bootstrap).
+
+RNF-2:Validación: El sistema no debe permitir el envío de formularios con campos vacíos o formatos de correo electrónico inválidos (validación del lado del cliente).
+
+RNF-3: Integridad de Datos (Persistencia): El sistema debe garantizar que, ante una caída del servidor, los datos almacenados en la base de datos MySQL no sufran inconsistencias ni pérdidas, asegurando la recuperación del último estado estable.
