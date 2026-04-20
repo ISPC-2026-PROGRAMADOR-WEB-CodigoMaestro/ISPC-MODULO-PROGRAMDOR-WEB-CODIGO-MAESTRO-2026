@@ -16,7 +16,7 @@ La propuesta de valor de ServiMatch se basa en brindar mayor confianza 🤝, seg
 
 - Frontend: Angular + Bootstrap
 - Backend: Django + Django Rest Framework
-- Base de datos: MySQL Workbench
+- Base de datos: MySQL
 - Control de versiones: Git y GitHub
 
 ## ⚙️ Instrucciones de instalación
@@ -38,11 +38,11 @@ pip install -r requirements.txt
 5. Configurar variables de entorno:
 Crear archivo .env basado en .env_modelo
 
-DB_NAME=nombre_db
-DB_USER=usuario
-DB_PASSWORD=contraseña
-DB_HOST=localhost
-DB_PORT=3306
+- DB_NAME=nombre_db
+- DB_USER=usuario
+- DB_PASSWORD=contraseña
+- DB_HOST=localhost
+- DB_PORT=3306
 
 6. Ejecutar migraciones:
 python manage.py migrate
