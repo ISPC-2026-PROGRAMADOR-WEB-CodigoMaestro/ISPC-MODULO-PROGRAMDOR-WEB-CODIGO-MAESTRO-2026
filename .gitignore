@@ -1,38 +1,32 @@
-# =========================
-# 🔐 Variables sensibles
-# =========================
+# Variables sensibles
 .env
 
-# =========================
-# 🐍 Python / Django (Backend)
-# =========================
+# Python / Django
 __pycache__/
 *.pyc
 *.pyo
 *.pyd
+
+# Entornos virtuales
 venv/
 env/
+mi_app/
 
 # Base de datos local
 db.sqlite3
+*.sqlite3
 
 # Logs
 *.log
 
-# =========================
-# ⚛️ Angular (Frontend)
-# =========================
+# Angular
 node_modules/
 dist/
 .angular/
 
-# =========================
-# 🧰 Editor (VS Code)
-# =========================
+# VS Code
 .vscode/
 
-# =========================
-# 💻 Sistema
-# =========================
+# Sistema
 .DS_Store
 Thumbs.db

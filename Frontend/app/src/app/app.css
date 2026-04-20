@@ -1,0 +1,17 @@
+.conteinerHeader{
+    background-color: rgb(2, 94, 136);
+    color: white;
+}
+
+
+.sectionSeguridad, .sectionCalificaciones, .sectionUbicacion {
+    background-color: rgb(2, 94, 136);
+    color: white;
+    padding: 20px;
+    border-radius: 5px;
+    margin-bottom: 73px;
+}
+
+.textFooter {
+    text-align: center;
+}
