@@ -6,8 +6,11 @@ __pycache__/
 *.pyc
 *.pyo
 *.pyd
+
+# Entornos virtuales
 venv/
 env/
+mi_app/
 
 # Base de datos local
 db.sqlite3
