@@ -50,6 +50,8 @@ python manage.py migrate
 7. Levantar servidor:
 python manage.py runserver
 
+8. URL prueba endpoint: http://127.0.0.1:8000/api/prueba/ 
+
 ### Frontend (Angular)
 
 1. Ir a la carpeta:
