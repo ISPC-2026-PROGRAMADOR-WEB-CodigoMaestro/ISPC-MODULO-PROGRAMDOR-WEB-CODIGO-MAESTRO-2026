@@ -5,23 +5,21 @@
 
 .logo{
   font-size: 1.4rem;
-  letter-spacing: 0.5px;
-  color: #fff !important;
+  color: #fff; 
 }
 
 .nav-link{
-  color: #d1d5db !important;
+  color: #d1d5db; 
   font-weight: 500;
   transition: all 0.3s ease;
   position: relative;
 }
 
 .nav-link:hover{
-  color: #ffffff !important;
+  color: #ffffff;
   transform: translateY(-1px);
 }
 
-/* Línea animada */
 .nav-link::after{
   content: '';
   position: absolute;
@@ -37,9 +35,9 @@
   width: 100%;
 }
 
-/* Ruta activa */
+
 .active{
-  color: #ffffff !important;
+  color: #ffffff 
 }
 
 .active::after{
