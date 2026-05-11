@@ -1,6 +1,10 @@
 from django.urls import path
-from .views import prueba_db
+from . import views
 
 urlpatterns = [
-    path('prueba/', prueba_db),
+
+    path('login/', views.login_view),
+
+    path('registro/', views.registro_view),
+
 ]
