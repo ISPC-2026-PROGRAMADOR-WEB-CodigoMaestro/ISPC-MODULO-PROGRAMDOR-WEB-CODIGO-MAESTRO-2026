@@ -21,11 +21,13 @@ class Usuario(models.Model):
     oficio = models.ForeignKey(
         Oficio,
         on_delete=models.SET_NULL,
+        null = True
     )
 
     ubicacion = models.ForeignKey(
         Ubicacion,
         on_delete=models.SET_NULL,
+        null = True
     )
 
     def __str__(self):
