@@ -1,10 +1,34 @@
 from django.urls import path
-from . import views
+
+from .views import (
+    RolView,
+    RolDetailView,
+
+    OficioView,
+    OficioDetailView,
+
+    UbicacionView,
+    UbicacionDetailView,
+
+    UsuarioView,
+    UsuarioDetailView
+)
 
 urlpatterns = [
 
-    path('login/', views.login_view),
+    ## ROL
+    path('roles/', RolView.as_view()),
+    path('roles/<int:pk>/', RolDetailView.as_view()),
 
-    path('registro/', views.registro_view),
+    ## OFICIO
+    path('oficios/', OficioView.as_view()),
+    path('oficios/<int:pk>/', OficioDetailView.as_view()),
 
+    ## UBICACION
+    path('ubicaciones/', UbicacionView.as_view()),
+    path('ubicaciones/<int:pk>/', UbicacionDetailView.as_view()),
+
+    ## USUARIO
+    path('usuarios/', UsuarioView.as_view()),
+    path('usuarios/<int:pk>/', UsuarioDetailView.as_view()),
 ]
