@@ -25,51 +25,31 @@
 
       <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-2">
 
-        <li class="nav-item">
-          <a
-            class="nav-link"
-            routerLink="/"
-            routerLinkActive="active">
-            Inicio
-          </a>
-        </li>
+        <li
+          class="nav-item"
+         *ngFor="let link of links">
 
-        <li class="nav-item">
-          <a
-            class="nav-link"
-            routerLink="/quienes-somos"
-            routerLinkActive="active">
-            Quiénes Somos
-          </a>
-        </li>
+         <a
+          class="nav-link"
+          [routerLink]="link.ruta"
+          routerLinkActive="active">
 
-         <li class="nav-item">
-          <a
-            class="nav-link"
-            routerLink="/profesionales"
-            routerLinkActive="active">
-            Profesionales
-          </a>
-        </li>
+      {{ link.nombre }}
 
-        <li class="nav-item">
-          <a
-            class="nav-link"
-            routerLink="/registro"
-            routerLinkActive="active">
-            Regístrate
-          </a>
-        </li>
+    </a>
 
-        <!-- boton -->
-        <li class="nav-item ms-lg-3">
-          <a class="btn btn-warning fw-semibold px-4">
-            Publicar Oficio
-          </a>
-        </li>
+  </li>
 
-      </ul>
+  <!-- boton -->
+  <li class="nav-item ms-lg-3">
 
+    <a class="btn btn-warning fw-semibold px-4">
+      Publicar Oficio
+    </a>
+
+  </li>
+
+</ul>
     </div>
   </div>
 </nav>
