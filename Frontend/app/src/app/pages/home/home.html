@@ -1,0 +1,109 @@
+<section class="container mt-5 text-center">
+  <h1 class="mb-4">{{ titulo }}</h1>
+
+  <p class="lead mb-4">
+    {{ descripcion }}
+  </p>
+
+  <button class="btn btn-primary btn-lg">
+    {{ textoBoton }}
+  </button>
+</section>
+
+<section class="container mt-5">
+  <div class="conteinerSection">
+    <div class="row text-center">
+
+      @for (beneficio of beneficios; track beneficio.titulo) {
+        <div class="col-md-4">
+          <div [class]="beneficio.clase">
+            <h3>{{ beneficio.icono }} {{ beneficio.titulo }}</h3>
+            <p>{{ beneficio.descripcion }}</p>
+          </div>
+        </div>
+      }
+
+    </div>
+  </div>
+</section>
+
+@if (imagenesCarrusel.length > 0) {
+  <div class="conteiner-carrusel">
+    <div id="carouselExampleRide" class="carousel slide" data-bs-ride="true">
+
+      <div class="carousel-inner">
+
+        @for (imagen of imagenesCarrusel; track imagen.src; let i = $index) {
+          <div class="carousel-item" [class.active]="i === 0">
+            <img
+              [src]="imagen.src"
+              class="d-block w-100"
+              [alt]="imagen.alt"
+            >
+          </div>
+        }
+
+      </div>
+
+      <button
+        class="carousel-control-prev"
+        type="button"
+        data-bs-target="#carouselExampleRide"
+        data-bs-slide="prev"
+      >
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Anterior</span>
+      </button>
+
+      <button
+        class="carousel-control-next"
+        type="button"
+        data-bs-target="#carouselExampleRide"
+        data-bs-slide="next"
+      >
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Siguiente</span>
+      </button>
+
+    </div>
+  </div>
+}
+
+<section class="container my-5 servimatch-info">
+  <div class="row align-items-center">
+
+    <div class="col-lg-6">
+
+      <h2 class="fw-bold mb-4">
+        ¿Necesitás un profesional confiable?
+        <br>
+        ServiMatch es para vos
+      </h2>
+
+      <p class="mb-4">
+        ServiMatch te permite encontrar trabajadores verificados,
+        comparar calificaciones y contactar profesionales de forma rápida,
+        segura y sin intermediarios.
+      </p>
+
+      <ul class="list-unstyled">
+        <li>✔ Buscá profesionales según tu ubicación.</li>
+        <li>✔ Compará opiniones y calificaciones reales.</li>
+        <li>✔ Contactá trabajadores de forma directa.</li>
+        <li>✔ Encontrá servicios rápidos y confiables.</li>
+      </ul>
+
+    </div>
+
+    <div class="col-lg-6 text-center">
+
+      <img
+        src="/image/servimatch-laptop.jpg"
+        class="img-fluid"
+        alt="Profesionales ServiMatch"
+      >
+
+    </div>
+
+  </div>
+</section>
