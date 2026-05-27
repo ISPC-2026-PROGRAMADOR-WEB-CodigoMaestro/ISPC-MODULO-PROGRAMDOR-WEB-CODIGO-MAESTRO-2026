@@ -13,10 +13,12 @@
   line-height: 1.7;
 }
 
-.footer-title{
-  color: #ffffff;
-  margin-bottom: 20px;
-  font-weight: 600;
+.servi{
+  color: white;
+}
+
+.match{
+  color: #facc15;
 }
 
 .footer-links{
