@@ -25,4 +25,3 @@ export class App {
   protected readonly title = signal('app');
 
 }
-
