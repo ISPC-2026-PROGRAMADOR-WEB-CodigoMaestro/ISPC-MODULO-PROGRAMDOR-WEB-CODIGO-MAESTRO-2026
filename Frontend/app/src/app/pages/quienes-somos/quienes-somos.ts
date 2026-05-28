@@ -1,13 +1,21 @@
 import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-quienes-somos',
   standalone: true,
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './quienes-somos.html',
   styleUrl: './quienes-somos.css'
 })
 export class QuienesSomos {
+
+  imagenesCarrusel = [
+  'image/trabajador-1.png',
+  'image/trabajador-2.png',
+  'image/trabajador-3.png',
+  'image/contratacion.png',
+];
 
   secciones = [
     {
