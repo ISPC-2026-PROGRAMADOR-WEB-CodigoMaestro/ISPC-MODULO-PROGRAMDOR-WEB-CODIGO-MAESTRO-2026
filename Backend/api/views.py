@@ -1,17 +1,11 @@
 from rest_framework.response import Response
-from rest_framework.views import APIView as ApiView
-
+from rest_framework.views import APIView
 from .models import Rol, Oficio, Ubicacion, Usuario
-from .serializers import (
-    RolSerializer,
-    OficioSerializer,
-    UbicacionSerializer,
-    UsuarioSerializer
-)
+from .serializers import (RolSerializer, OficioSerializer, UbicacionSerializer, UsuarioSerializer)
 
 ## ROL
 
-class RolView(ApiView):
+class RolView(APIView):
 
     def get(self, request):
         roles = Rol.objects.all()
@@ -28,7 +22,7 @@ class RolView(ApiView):
         return Response(serializer.errors, status=400)
 
 
-class RolDetailView(ApiView):
+class RolDetailView(APIView):
 
     def get_object(self, pk):
         try:
@@ -70,7 +64,7 @@ class RolDetailView(ApiView):
 
 ## OFICIO
 
-class OficioView(ApiView):
+class OficioView(APIView):
 
     def get(self, request):
         oficios = Oficio.objects.all()
@@ -87,7 +81,7 @@ class OficioView(ApiView):
         return Response(serializer.errors, status=400)
 
 
-class OficioDetailView(ApiView):
+class OficioDetailView(APIView):
 
     def get_object(self, pk):
         try:
@@ -129,7 +123,7 @@ class OficioDetailView(ApiView):
 
 ## UBICACION
 
-class UbicacionView(ApiView):
+class UbicacionView(APIView):
 
     def get(self, request):
         ubicaciones = Ubicacion.objects.all()
@@ -146,7 +140,7 @@ class UbicacionView(ApiView):
         return Response(serializer.errors, status=400)
 
 
-class UbicacionDetailView(ApiView):
+class UbicacionDetailView(APIView):
 
     def get_object(self, pk):
         try:
@@ -188,7 +182,7 @@ class UbicacionDetailView(ApiView):
 
 ## USUARIO
 
-class UsuarioView(ApiView):
+class UsuarioView(APIView):
 
     def get(self, request):
         usuarios = Usuario.objects.all()
@@ -205,7 +199,7 @@ class UsuarioView(ApiView):
         return Response(serializer.errors, status=400)
 
 
-class UsuarioDetailView(ApiView):
+class UsuarioDetailView(APIView):
 
     def get_object(self, pk):
         try:
