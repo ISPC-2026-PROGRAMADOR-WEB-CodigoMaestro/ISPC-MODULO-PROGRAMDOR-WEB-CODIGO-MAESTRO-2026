@@ -29,8 +29,12 @@
           {{ profesional.experiencia }}
         </p>
 
-        <a href="#" class="btn btn-primary btn-perfil">
-          Ver perfil
+        <a
+            [routerLink]="['/detalle-profesional', profesional.id]"
+            class="btn btn-primary btn-perfil">
+
+            Ver perfil
+
         </a>
 
       </div>
