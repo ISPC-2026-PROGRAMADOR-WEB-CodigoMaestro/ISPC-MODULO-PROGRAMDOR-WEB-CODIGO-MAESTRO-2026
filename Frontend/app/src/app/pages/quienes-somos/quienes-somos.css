@@ -16,3 +16,44 @@ section h2 {
   color: #0947bb;
   margin-bottom: 1rem;
 }
+
+/*carrucel*/
+.carrusel-personalizado {
+  max-width: 850px;
+  margin: 40px auto;
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+  
+}
+
+.carrusel-personalizado img {
+  height: 450px;
+  width: 100%;
+  transition: transform 0.5s ease;
+}
+
+.carrusel-personalizado:hover img {
+  transform: scale(1.03);
+}
+
+.carrusel-personalizado::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.35),
+    rgba(0, 0, 0, 0.05)
+  );
+  pointer-events: none;
+}
+
+/*flechas*/
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 50%;
+  padding: 20px;
+}
+
