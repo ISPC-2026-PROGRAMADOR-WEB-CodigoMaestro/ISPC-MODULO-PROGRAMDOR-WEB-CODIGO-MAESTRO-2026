@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-profesionales',
-  imports: [],
+  imports: [RouterLink],
   templateUrl: './profesionales.html',
   styleUrl: './profesionales.css',
 })
@@ -12,6 +13,7 @@ export class Profesionales {
   profesionalesDestacados = [
 
     {
+      id: 1,
       nombre: 'Carlos Gómez',
       imagen: 'image/perfil1.jpg',
       oficio: '⚡ Electricista matriculado',
@@ -21,6 +23,7 @@ export class Profesionales {
     },
 
     {
+      id: 2,
       nombre: 'Matías Fernández',
       imagen: 'image/perfil2.jpg',
       oficio: '🪚 Carpintero profesional',
@@ -30,6 +33,7 @@ export class Profesionales {
     },
 
     {
+      id: 3,
       nombre: 'Luciano Pérez',
       imagen: 'image/perfil3.jpg',
       oficio: '🎨 Pintor de interiores',
@@ -39,6 +43,7 @@ export class Profesionales {
     },
 
     {
+      id: 4,
       nombre: 'Javier Ruiz',
       imagen: 'image/perfil4.jpg',
       oficio: '🔧 Mecánico automotriz',
@@ -48,6 +53,7 @@ export class Profesionales {
     },
 
     {
+      id: 5,
       nombre: 'Fernando López',
       imagen: 'image/perfil5.jpg',
       oficio: '🚿 Plomero certificado',
@@ -57,6 +63,7 @@ export class Profesionales {
     },
 
     {
+      id: 6,
       nombre: 'Nicolás Díaz',
       imagen: 'image/perfil6.jpg',
       oficio: '❄ Técnico en climatización',

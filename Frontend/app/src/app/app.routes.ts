@@ -6,6 +6,7 @@ import { Registro } from './pages/registro/registro';
 import { Dashboard } from './pages/dashboard/dashboard';
 import { Profesionales } from './pages/profesionales/profesionales';
 import { Login } from './pages/login/login';
+import { DetalleProfesional } from './pages/detalle-profesional/detalle-profesional';
 
 export const routes: Routes = [
 
@@ -15,5 +16,6 @@ export const routes: Routes = [
   { path: 'dashboard', component: Dashboard },
   { path: 'profesionales', component: Profesionales },
   { path: 'login', component: Login },
+  { path: 'detalle-profesional/:id', component: DetalleProfesional },
 
 ];
