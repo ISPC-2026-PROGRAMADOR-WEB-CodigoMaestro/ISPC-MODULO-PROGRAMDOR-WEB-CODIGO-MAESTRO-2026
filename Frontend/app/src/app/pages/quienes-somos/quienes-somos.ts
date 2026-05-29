@@ -11,11 +11,12 @@ import { CommonModule } from '@angular/common';
 export class QuienesSomos {
 
   imagenesCarrusel = [
-  'image/trabajador-1.png',
-  'image/trabajador-2.png',
-  'image/trabajador-3.png',
-  'image/contratacion.png',
-];
+     '/image/foto-grupal-equipo.png',
+    '/image/foto-grupal-trabajadores.png',
+    '/image/foto-grupal-hibrido.png',
+    '/image/charla.png',
+    '/image/obra.png'
+  ];
 
   secciones = [
     {
