@@ -61,6 +61,24 @@ export class DetalleProfesional {
       criterio: 'Comunicación',
       porcentaje: 92
     }
+  ],
+
+  resenas: [
+    {
+      nombre: 'Ana Martínez',
+      comentario: 'Carlos resolvió el problema eléctrico de mi casa en tiempo récord. Muy profesional y ordenado.',
+      servicio: 'Instalación eléctrica'
+    },
+    {
+      nombre: 'Diego Herrera',
+      comentario: 'Excelente trabajo en el tablero eléctrico. Explicó todo el proceso y dejó todo impecable.',
+      servicio: 'Armado de tablero'
+    },
+    {
+      nombre: 'Valeria Ríos',
+      comentario: 'Muy buen profesional, rápido y prolijo. El precio fue justo y el resultado excelente.',
+      servicio: 'Iluminación LED'
+    }
   ]
 
     },
@@ -113,6 +131,24 @@ export class DetalleProfesional {
     {
       criterio: 'Comunicación',
       porcentaje: 98
+    }
+  ],
+
+    resenas: [
+    {
+      nombre: 'Laura García',
+      comentario: 'Excelente trabajo, muy prolijo y puntual. El mueble quedó exactamente como lo pedí.',
+      servicio: 'Carpintería a medida'
+    },
+    {
+      nombre: 'Martín Cabrera',
+      comentario: 'Nos hizo las puertas de toda la casa, quedaron perfectas. Muy recomendable.',
+      servicio: 'Reparación de puertas'
+    },
+    {
+      nombre: 'Paula Juárez',
+      comentario: 'Instaló el piso de madera en tiempo y forma. Muy atento y con buena comunicación.',
+      servicio: 'Pisos de madera'
     }
   ]
 
@@ -167,6 +203,24 @@ export class DetalleProfesional {
       criterio: 'Comunicación',
       porcentaje: 85
     }
+  ],
+
+    resenas: [
+    {
+      nombre: 'Roberto Sánchez',
+      comentario: 'Pintó toda la fachada en dos días. Terminaciones impecables y muy buen precio.',
+      servicio: 'Pintura de exteriores'
+    },
+    {
+      nombre: 'Gabriela Molina',
+      comentario: 'Pintó el living y los dormitorios, quedó hermoso. Muy limpio y ordenado mientras trabajaba.',
+      servicio: 'Pintura de interiores'
+    },
+    {
+      nombre: 'Tomás Aguirre',
+      comentario: 'Hizo una textura decorativa en el comedor que quedó espectacular. Muy creativo.',
+      servicio: 'Pintura decorativa'
+    }
   ]
 
     },
@@ -219,6 +273,24 @@ export class DetalleProfesional {
     {
       criterio: 'Comunicación',
       porcentaje: 92
+    }
+  ],
+
+    resenas: [
+    {
+      nombre: 'Marcelo Torres',
+      comentario: 'Llevé el auto con un problema que nadie había podido resolver y Javier lo solucionó el mismo día.',
+      servicio: 'Diagnóstico automotriz'
+    },
+    {
+      nombre: 'Cecilia Navarro',
+      comentario: 'Cambió los frenos del auto de manera rápida y segura. Precio muy razonable.',
+      servicio: 'Cambio de frenos'
+    },
+    {
+      nombre: 'Gustavo Peralta',
+      comentario: 'Hizo el service completo del auto, todo quedó en perfecto estado. Muy profesional.',
+      servicio: 'Service completo'
     }
   ]
 
@@ -273,6 +345,24 @@ export class DetalleProfesional {
       criterio: 'Comunicación',
       porcentaje: 98
     }
+  ],
+
+  resenas: [
+    {
+      nombre: 'Claudia Romero',
+      comentario: 'Fernando instaló el termotanque solar en pocas horas, todo quedó prolijo y explicó muy bien el mantenimiento.',
+      servicio: 'Termotanque solar'
+    },
+    {
+      nombre: 'Ignacio Flores',
+      comentario: 'Reparó una pérdida de agua que teníamos hace meses. Rápido, limpio y muy honesto con el presupuesto.',
+      servicio: 'Reparación de cañerías'
+    },
+    {
+      nombre: 'Miriam Ledesma',
+      comentario: 'Instaló el sanitario nuevo sin ningún problema. Buen trato y puntual.',
+      servicio: 'Instalación de sanitario'
+    }
   ]
 
     },
@@ -325,6 +415,24 @@ export class DetalleProfesional {
     {
       criterio: 'Comunicación',
       porcentaje: 70
+    }
+  ],
+  
+    resenas: [
+    {
+      nombre: 'Sofía Villalba',
+      comentario: 'Instaló el aire acondicionado perfectamente y dejó todo limpio. Muy atento y puntual.',
+      servicio: 'Aire acondicionado'
+    },
+    {
+      nombre: 'Hernán Bustos',
+      comentario: 'Hizo el mantenimiento del sistema de refrigeración del local. Muy eficiente y profesional.',
+      servicio: 'Mantenimiento de refrigeración'
+    },
+    {
+      nombre: 'Natalia Giménez',
+      comentario: 'Reparó la calefacción justo antes del invierno. Rápido y con muy buen precio.',
+      servicio: 'Reparación de calefacción'
     }
   ]
 
