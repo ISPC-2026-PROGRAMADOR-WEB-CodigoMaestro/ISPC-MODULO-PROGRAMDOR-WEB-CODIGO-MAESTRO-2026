@@ -1,11 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import {
-  FormBuilder,
-  FormGroup,
-  ReactiveFormsModule,
-  Validators
-} from '@angular/forms';
+import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 
 @Component({
   selector: 'app-registro',
@@ -19,33 +14,44 @@ export class Registro {
   formularioRegistro: FormGroup;
   mensajeExito = false;
 
-  provincias: string[] = [
-    'Buenos Aires', 'Catamarca', 'Chaco', 'Chubut', 'Córdoba',
-    'Corrientes', 'Entre Ríos', 'Formosa', 'Jujuy', 'La Pampa',
-    'La Rioja', 'Mendoza', 'Misiones', 'Neuquén', 'Río Negro',
-    'Salta', 'San Juan', 'San Luis', 'Santa Cruz', 'Santa Fe',
-    'Santiago del Estero', 'Tierra del Fuego', 'Tucumán'
-  ];
+ubicaciones = [
+  { id: 10, ciudad: 'Unquillo', provincia: 'Córdoba' },
+  { id: 11, ciudad: 'Salsipuedes', provincia: 'Córdoba' },
+  { id: 12, ciudad: 'Deán Funes', provincia: 'Córdoba' },
+  { id: 13, ciudad: 'La Calera', provincia: 'Córdoba' }
+];
+
+oficios = [
+  { id: 10, nombre_oficio: 'Gasista' },
+  { id: 11, nombre_oficio: 'Albanil' },
+  { id: 12, nombre_oficio: 'Jardinero' },
+  { id: 13, nombre_oficio: 'Cerrajero' }
+];
 
   constructor(private formBuilder: FormBuilder) {
     this.formularioRegistro = this.formBuilder.group({
-      nombre: ['', Validators.required],
-      apellido: ['', Validators.required],
+      nombre: ['', [Validators.required, Validators.pattern('^[a-zA-Z ]+$')]],
       email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(8)]],
-      confirmPassword: ['', [Validators.required, Validators.minLength(8)]],
-      telefono: ['' , Validators.required],
-      fechaNacimiento: ['', Validators.required],
-      direccion: ['', Validators.required],
-      provincia: ['', Validators.required]
+      contrasena: ['', [Validators.required, Validators.minLength(8)]],
+      dni: ['', [Validators.required, Validators.pattern('^[0-9]{8}$')]],
+      ubicacion: [null, Validators.required],
+      oficio: [null]
     });
   }
 
-  registrarUsuario() {
+registrarUsuario() {
     if (this.formularioRegistro.valid) {
-      console.log(this.formularioRegistro.value);
+
+      const usuario = this.formularioRegistro.value;
+
+      console.log(usuario);
+
       this.mensajeExito = true;
-      this.formularioRegistro.reset();
+      setTimeout(() => {
+        this.mensajeExito = false;
+        this.formularioRegistro.reset();
+      }, 3000);
+
     } else {
       this.formularioRegistro.markAllAsTouched();
     }
