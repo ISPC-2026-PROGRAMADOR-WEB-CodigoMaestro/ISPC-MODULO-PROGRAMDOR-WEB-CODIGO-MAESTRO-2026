@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
+import { UsuarioService } from '../../services/usuario.service';
 
 @Component({
   selector: 'app-registro',
@@ -28,7 +29,7 @@ oficios = [
   { id: 13, nombre_oficio: 'Cerrajero' }
 ];
 
-  constructor(private formBuilder: FormBuilder) {
+  constructor(private formBuilder: FormBuilder, private usuarioService: UsuarioService) {
     this.formularioRegistro = this.formBuilder.group({
       nombre: ['', [Validators.required, Validators.pattern('^[a-zA-Z ]+$')]],
       email: ['', [Validators.required, Validators.email]],
@@ -39,21 +40,25 @@ oficios = [
     });
   }
 
-registrarUsuario() {
-    if (this.formularioRegistro.valid) {
+  registrarUsuario() {
 
-      const usuario = this.formularioRegistro.value;
+  if (this.formularioRegistro.valid) {
+    const usuario = this.formularioRegistro.value;
+    console.log("Enviando al servidor...");
 
-      console.log(usuario);
-
-      this.mensajeExito = true;
-      setTimeout(() => {
-        this.mensajeExito = false;
+    this.usuarioService.registrarUsuario(usuario).subscribe({
+      next: (data) => {
+        console.log(data);
+        alert("El registro ha sido creado satisfactoriamente.");
         this.formularioRegistro.reset();
-      }, 3000);
-
-    } else {
-      this.formularioRegistro.markAllAsTouched();
-    }
+      },
+      error: (error) => {
+        console.error("Error al registrar usuario:", error);
+        alert("Ocurrió un error al registrar el usuario.");
+      }
+    });
+  } else {
+    this.formularioRegistro.markAllAsTouched();
   }
+}
 }
