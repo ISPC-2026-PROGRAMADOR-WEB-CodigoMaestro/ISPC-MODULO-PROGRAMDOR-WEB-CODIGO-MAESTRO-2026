@@ -36,7 +36,8 @@ oficios = [
       contrasena: ['', [Validators.required, Validators.minLength(8)]],
       dni: ['', [Validators.required, Validators.pattern('^[0-9]{8}$')]],
       ubicacion: [null, Validators.required],
-      oficio: [null]
+      oficio: [null],
+      rol: 11
     });
   }
 
