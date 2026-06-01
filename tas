@@ -1,0 +1,12 @@
+[1mdiff --git a/Backend/config/settings.py b/Backend/config/settings.py[m
+[1mindex 646b119..cc462ca 100644[m
+[1m--- a/Backend/config/settings.py[m
+[1m+++ b/Backend/config/settings.py[m
+[36m@@ -44,6 +44,7 @@[m [mINSTALLED_APPS = [[m
+     [m
+     'rest_framework',[m
+     'api',[m
+[32m+[m[41m    [m
+ ][m
+ [m
+ MIDDLEWARE = [[m

@@ -20,6 +20,7 @@
       El nombre es obligatorio.
     </small>
 
+<<<<<<< HEAD
     <label for="apellido">Apellido</label>
     <input
       type="text"
@@ -31,6 +32,14 @@
     <small *ngIf="formularioRegistro.get('apellido')?.invalid && formularioRegistro.get('apellido')?.touched">
       El apellido es obligatorio.
     </small>
+=======
+    @if (formularioRegistro.get('nombre')?.errors?.['pattern'] && formularioRegistro.get('nombre')?.touched) {
+      <small>
+        El nombre solo puede contener letras.
+      </small>
+    }
+    
+>>>>>>> 20a701adcecef99a89b25046f9443ae324a35c95
 
     <label for="email">Correo electrónico</label>
     <input
@@ -44,45 +53,60 @@
       Ingrese un correo electrónico válido.
     </small>
 
-    <label for="password">Contraseña</label>
+    <label for="contrasena">Contraseña</label>
     <input
       type="password"
-      id="password"
-      formControlName="password"
+      id="contrasena"
+      formControlName="contrasena"
       placeholder="Mínimo 8 caracteres"
     >
 
+<<<<<<< HEAD
     <small *ngIf="formularioRegistro.get('password')?.invalid && formularioRegistro.get('password')?.touched">
       La contraseña debe tener mínimo 8 caracteres.
     </small>
+=======
+    @if (formularioRegistro.get('contrasena')?.invalid && formularioRegistro.get('contrasena')?.touched) {
+      <small>
+        La contraseña debe tener mínimo 8 caracteres.
+      </small>
+    }
+>>>>>>> 20a701adcecef99a89b25046f9443ae324a35c95
 
-    <label for="confirmPassword">Confirmar contraseña</label>
-    <input
-      type="password"
-      id="confirmPassword"
-      formControlName="confirmPassword"
-      placeholder="Repita la contraseña"
-    >
+    <label for="dni">DNI</label>
+    <input 
+      type="text" 
+      id="dni" 
+      formControlName="dni" 
+      placeholder="Ej. 40111222"
+      >
 
+<<<<<<< HEAD
     <small *ngIf="formularioRegistro.get('confirmPassword')?.invalid && formularioRegistro.get('confirmPassword')?.touched">
       Debe confirmar la contraseña.
     </small>
+=======
 
-    <label for="telefono">Teléfono</label>
-    <input
-      type="number"
-      id="telefono"
-      formControlName="telefono"
-      placeholder="351536989"
-    >
+    @if (formularioRegistro.get('dni')?.invalid && formularioRegistro.get('dni')?.touched) {
+      <small>
+        El DNI es obligatorio.
+      </small>
+    }
+>>>>>>> 20a701adcecef99a89b25046f9443ae324a35c95
 
-    <label for="fechaNacimiento">Fecha de nacimiento</label>
-    <input
-      type="date"
-      id="fechaNacimiento"
-      formControlName="fechaNacimiento"
-    >
+    @if (formularioRegistro.get('dni')?.errors?.['pattern'] && formularioRegistro.get('dni')?.touched) {
+      <small>
+        El DNI debe contener solo números.
+      </small>
+    }
 
+        <label for="ubicacion">Ciudad</label>
+    <select id="ubicacion" formControlName="ubicacion">
+      <option [ngValue]="null">
+        Seleccione una ciudad
+      </option>
+
+<<<<<<< HEAD
     <label for="direccion">Dirección</label>
     <input
       type="text"
@@ -107,6 +131,39 @@
     <p *ngIf="mensajeExito" class="success-message">
       Registro completado con éxito!!
     </p>
+=======
+      @for (ubicacion of ubicaciones; track ubicacion.id) {
+        <option [value]="ubicacion.id">
+          {{ ubicacion.ciudad }}
+        </option>
+      }
+    </select>
+
+    @if (formularioRegistro.get('ubicacion')?.invalid && formularioRegistro.get('ubicacion')?.touched) {
+      <small>
+        Debe seleccionar una ciudad.
+      </small>
+    }
+
+    <label for="oficio">Oficio (Opcional)</label>
+    <select id="oficio" formControlName="oficio">
+      <option [ngValue]="null">
+        No soy un profesional de oficio
+      </option>
+
+      @for (oficio of oficios; track oficio.id) {
+        <option [value]="oficio.id">
+          {{ oficio.nombre_oficio }}
+        </option>
+      }
+    </select>
+
+    @if (mensajeExito) {
+      <p class="success-message">
+        Registro completado con éxito!!
+      </p>
+    }
+>>>>>>> 20a701adcecef99a89b25046f9443ae324a35c95
 
     <button type="submit">
       Registrarse

@@ -4,12 +4,13 @@
 -- python manage.py migrate
 -- Luego ejecutar este script para cargar los datos de prueba.
 
-CREATE DATABASE IF NOT EXISTS servimatch_db_v2;
-USE servimatch_db_v2;
+CREATE DATABASE IF NOT EXISTS servimatch_db_v3;
+USE servimatch_db_v3;
 
 -- ROLES
 INSERT INTO api_rol (id, nombre_rol) VALUES
-(10, 'Profesional');
+(10, 'Profesional'),
+(11, 'Estándar');
 
 -- OFICIOS
 INSERT INTO api_oficio (id, nombre_oficio) VALUES
