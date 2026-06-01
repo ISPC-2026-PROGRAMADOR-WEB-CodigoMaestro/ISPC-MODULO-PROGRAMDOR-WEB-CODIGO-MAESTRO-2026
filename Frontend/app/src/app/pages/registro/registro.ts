@@ -1,18 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-<<<<<<< HEAD
-import {
-  FormBuilder,
-  FormGroup,
-  ReactiveFormsModule,
-  Validators
-} from '@angular/forms';
-import { Router } from '@angular/router';
-=======
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UsuarioService } from '../../services/usuario.service';
->>>>>>> 20a701adcecef99a89b25046f9443ae324a35c95
 
 @Component({
   selector: 'app-registro',
@@ -26,9 +16,6 @@ export class Registro {
   formularioRegistro: FormGroup;
   mensajeExito = false;
 
-<<<<<<< HEAD
-  constructor(private formBuilder: FormBuilder, private router: Router) {
-=======
   ubicaciones = [
     { id: 10, ciudad: 'Unquillo', provincia: 'Córdoba' },
     { id: 11, ciudad: 'Salsipuedes', provincia: 'Córdoba' },
@@ -48,7 +35,6 @@ export class Registro {
     private usuarioService: UsuarioService,
     private router: Router
   ) {
->>>>>>> 20a701adcecef99a89b25046f9443ae324a35c95
     this.formularioRegistro = this.formBuilder.group({
       nombre: ['', [Validators.required, Validators.pattern('^[a-zA-Z ]+$')]],
       email: ['', [Validators.required, Validators.email]],
@@ -59,35 +45,6 @@ export class Registro {
     });
   }
 
-<<<<<<< HEAD
-  provincias: string[] = [
-    'Buenos Aires', 'Catamarca', 'Chaco', 'Chubut', 'Córdoba',
-    'Corrientes', 'Entre Ríos', 'Formosa', 'Jujuy', 'La Pampa',
-    'La Rioja', 'Mendoza', 'Misiones', 'Neuquén', 'Río Negro',
-    'Salta', 'San Juan', 'San Luis', 'Santa Cruz', 'Santa Fe',
-    'Santiago del Estero', 'Tierra del Fuego', 'Tucumán'
-  ];
-
-  onSubmit() {
-    console.log('Formulario enviado', this.formularioRegistro.valid);
-    Object.keys(this.formularioRegistro.controls).forEach((controlName) => {
-      const control = this.formularioRegistro.get(controlName);
-      console.log(
-        controlName,
-        'valid=',
-        control?.valid,
-        'value=',
-        control?.value
-      );
-    });
-
-    if (this.formularioRegistro.valid) {
-      console.log('Registro válido', this.formularioRegistro.value);
-      this.mensajeExito = true;
-      this.router.navigate(['/login']).then(() => {
-        this.formularioRegistro.reset();
-      });
-=======
   registrarUsuario() {
 
     if (this.formularioRegistro.valid) {
@@ -114,9 +71,7 @@ export class Registro {
         }
       });
 
->>>>>>> 20a701adcecef99a89b25046f9443ae324a35c95
     } else {
-      console.log('Formulario inválido');
       this.formularioRegistro.markAllAsTouched();
     }
 
