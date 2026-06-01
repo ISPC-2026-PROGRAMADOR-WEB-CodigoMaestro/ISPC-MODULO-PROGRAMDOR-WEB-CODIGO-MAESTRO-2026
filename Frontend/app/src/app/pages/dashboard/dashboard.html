@@ -1,1 +1,22 @@
-<p>dashboard works!</p>
+<h2>Usuarios registrados</h2>
+
+@if (usuarios.length === 0) {
+
+  <p>No hay usuarios registrados.</p>
+
+} @else {
+
+  <ul>
+
+    @for (usuario of usuarios; track usuario.id) {
+
+      <li>
+        <strong>{{ usuario.nombre }}</strong>
+        - {{ usuario.email }}
+      </li>
+
+    }
+
+  </ul>
+
+}
