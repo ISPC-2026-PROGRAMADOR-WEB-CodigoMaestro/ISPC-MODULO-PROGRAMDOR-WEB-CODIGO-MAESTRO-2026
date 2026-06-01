@@ -16,13 +16,9 @@
 
     <div class="carousel-inner">
 
-      @for (imagen of imagenesCarrusel; track imagen; let i = $index) {
-
-        <div class="carousel-item" [class.active]="i === 0">
-          <img [src]="imagen" class="d-block w-100" alt="Imagen empresa">
-        </div>
-
-      }
+      <div class="carousel-item" *ngFor="let imagen of imagenesCarrusel; let i = index" [class.active]="i === 0">
+        <img [src]="imagen" class="d-block w-100" alt="Imagen empresa">
+      </div>
 
     </div>
 
@@ -52,34 +48,20 @@
 
 <div class="container">
 
-  @for (seccion of secciones; track seccion.titulo) {
+  <section *ngFor="let seccion of secciones">
 
-    <section>
+    <h2>{{ seccion.titulo }}</h2>
 
-      <h2>{{ seccion.titulo }}</h2>
+    <ng-container *ngIf="seccion.parrafos?.length > 0">
+      <p *ngFor="let parrafo of seccion.parrafos">{{ parrafo }}</p>
+    </ng-container>
 
-      @if (seccion.parrafos.length > 0) {
+    <ng-container *ngIf="seccion.items?.length > 0">
+      <ul>
+        <li *ngFor="let item of seccion.items">{{ item }}</li>
+      </ul>
+    </ng-container>
 
-        @for (parrafo of seccion.parrafos; track parrafo) {
-          <p>{{ parrafo }}</p>
-        }
-
-      }
-
-      @if (seccion.items.length > 0) {
-
-        <ul>
-
-          @for (item of seccion.items; track item) {
-            <li>{{ item }}</li>
-          }
-
-        </ul>
-
-      }
-
-    </section>
-
-  }
+  </section>
 
 </div>

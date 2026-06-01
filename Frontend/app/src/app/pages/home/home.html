@@ -201,9 +201,7 @@
 
   <div class="accordion" id="accordionFAQ">
 
-    @for (pregunta of preguntasFrecuentes; track pregunta.pregunta; let i = $index) {        <!-- Agregamos un índice para generar IDs únicos -->
-
-      <div class="accordion-item">
+    <div class="accordion-item" *ngFor="let pregunta of preguntasFrecuentes; let i = index">
 
         <h2 class="accordion-header">
 
@@ -233,8 +231,6 @@
         </div>
 
       </div>
-
-    }
 
   </div>
 

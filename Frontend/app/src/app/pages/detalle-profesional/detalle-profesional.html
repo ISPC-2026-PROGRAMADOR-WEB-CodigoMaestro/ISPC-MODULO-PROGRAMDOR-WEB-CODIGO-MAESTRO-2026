@@ -50,49 +50,43 @@
 
     <div class="carousel-indicators">
 
-      @for (trabajo of profesional.trabajos; track trabajo.imagen; let i = $index) {
-
-        <button
-          type="button"
-          data-bs-target="#carouselTrabajos"
-          [attr.data-bs-slide-to]="i"
-          [class.active]="i === 0"
-          [attr.aria-current]="i === 0 ? 'true' : null"
-          [attr.aria-label]="'Slide ' + (i + 1)">
-        </button>
-
-      }
+      <button
+        *ngFor="let trabajo of profesional.trabajos; let i = index"
+        type="button"
+        data-bs-target="#carouselTrabajos"
+        [attr.data-bs-slide-to]="i"
+        [class.active]="i === 0"
+        [attr.aria-current]="i === 0 ? 'true' : null"
+        [attr.aria-label]="'Slide ' + (i + 1)">
+      </button>
 
     </div>
 
     <div class="carousel-inner">
 
-      @for (trabajo of profesional.trabajos; track trabajo.imagen; let i = $index) {
+      <div
+        class="carousel-item"
+        *ngFor="let trabajo of profesional.trabajos; let i = index"
+        [class.active]="i === 0">
 
-        <div
-          class="carousel-item"
-          [class.active]="i === 0">
+        <img
+          [src]="trabajo.imagen"
+          class="d-block  rounded imagen-trabajo"
+          [alt]="trabajo.titulo">
 
-          <img
-            [src]="trabajo.imagen"
-            class="d-block  rounded imagen-trabajo"
-            [alt]="trabajo.titulo">
+        <div class="carousel-caption d-none d-md-block">
 
-          <div class="carousel-caption d-none d-md-block">
+          <h5>
+            {{ trabajo.titulo }}
+          </h5>
 
-            <h5>
-              {{ trabajo.titulo }}
-            </h5>
-
-            <p>
-              {{ trabajo.descripcion }}
-            </p>
-
-          </div>
+          <p>
+            {{ trabajo.descripcion }}
+          </p>
 
         </div>
 
-      }
+      </div>
 
     </div>
 
@@ -140,58 +134,48 @@
     Valoraciones del profesional
   </h2>
 
-  @for (valoracion of profesional.valoraciones; track valoracion.criterio) {
+  <div *ngFor="let valoracion of profesional.valoraciones" class="mb-4">
 
-    <div class="mb-4">
+    <span class="fw-bold">
+      {{ valoracion.criterio }}
+    </span>
 
-      <span class="fw-bold">
-        {{ valoracion.criterio }}
-      </span>
+    <div
+      class="progress"
+      role="progressbar"
+      [attr.aria-valuenow]="valoracion.porcentaje"
+      aria-valuemin="0"
+      aria-valuemax="100">
 
       <div
-        class="progress"
-        role="progressbar"
-        [attr.aria-valuenow]="valoracion.porcentaje"
-        aria-valuemin="0"
-        aria-valuemax="100">
+        class="progress-bar"
+        [style.width.%]="valoracion.porcentaje">         
 
-        <div
-          class="progress-bar"
-          [style.width.%]="valoracion.porcentaje">         
-
-          {{ valoracion.porcentaje }}%
-
-        </div>
+        {{ valoracion.porcentaje }}%
 
       </div>
 
     </div>
 
-  }
+  </div>
 
-<section class="container my-5">
+  </section>
 
-  <h2 class="fw-bold text-center mb-4">Reseñas</h2>
-
-  @for (resena of profesional.resenas; track resena.nombre) {
-
-    <div class="card border-0 shadow-sm rounded-4 mb-3">
-      <div class="card-body">
-        <figure class="mb-0">
-          <blockquote class="blockquote">
-            <p>
-              "{{ resena.comentario }}"
-            </p>
-          </blockquote>
-          <figcaption class="blockquote-footer mb-0">
-            {{ resena.nombre }}
-            <cite> — {{ resena.servicio }}</cite>
-          </figcaption>
-        </figure>
-      </div>
+  <div *ngFor="let resena of profesional.resenas" class="card border-0 shadow-sm rounded-4 mb-3">
+    <div class="card-body">
+      <figure class="mb-0">
+        <blockquote class="blockquote">
+          <p>
+            "{{ resena.comentario }}"
+          </p>
+        </blockquote>
+        <figcaption class="blockquote-footer mb-0">
+          {{ resena.nombre }}
+          <cite> — {{ resena.servicio }}</cite>
+        </figcaption>
+      </figure>
     </div>
-
-  }
+  </div>
 
 </section>
 
