@@ -6,7 +6,11 @@ import { UsuarioService } from '../../services/usuario.service';
 @Component({
   selector: 'app-dashboard',
   standalone: true,
+<<<<<<< HEAD
+  imports: [],
+=======
   imports: [CommonModule],
+>>>>>>> 20a701adcecef99a89b25046f9443ae324a35c95
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.css',
 })
