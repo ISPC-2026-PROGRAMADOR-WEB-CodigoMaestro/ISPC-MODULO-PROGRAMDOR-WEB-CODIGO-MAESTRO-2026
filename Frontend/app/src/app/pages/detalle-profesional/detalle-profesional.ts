@@ -1,9 +1,11 @@
 import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-detalle-profesional',
-  imports: [],
+  standalone: true,
+  imports: [CommonModule],
   templateUrl: './detalle-profesional.html',
   styleUrl: './detalle-profesional.css',
 })

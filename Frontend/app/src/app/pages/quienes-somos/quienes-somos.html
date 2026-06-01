@@ -52,11 +52,11 @@
 
     <h2>{{ seccion.titulo }}</h2>
 
-    <ng-container *ngIf="seccion.parrafos?.length > 0">
+    <ng-container *ngIf="seccion.parrafos.length > 0">
       <p *ngFor="let parrafo of seccion.parrafos">{{ parrafo }}</p>
     </ng-container>
 
-    <ng-container *ngIf="seccion.items?.length > 0">
+    <ng-container *ngIf="seccion.items.length > 0">
       <ul>
         <li *ngFor="let item of seccion.items">{{ item }}</li>
       </ul>
