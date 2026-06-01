@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder } from '@angular/forms';
+import { Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-login',
@@ -14,21 +15,24 @@ export class Login {
 
   loginForm;
 
-  constructor(
-    private fb: FormBuilder,
-    private router: Router
-  ) {
+  constructor(private fb: FormBuilder) {
 
     this.loginForm = this.fb.group({
 
       email: [
         '',
-        [Validators.required, Validators.email]
+        [
+          Validators.required,
+          Validators.email
+        ]
       ],
 
       password: [
         '',
-        [Validators.required, Validators.minLength(8)]
+        [
+          Validators.required,
+          Validators.minLength(8)
+        ]
       ]
 
     });
@@ -38,15 +42,15 @@ export class Login {
   ingresar() {
 
     if (this.loginForm.invalid) {
+
       this.loginForm.markAllAsTouched();
+
       return;
+
     }
 
     console.log(this.loginForm.value);
 
-   
-    this.router.navigate(['/']);
   }
 
 }
-
