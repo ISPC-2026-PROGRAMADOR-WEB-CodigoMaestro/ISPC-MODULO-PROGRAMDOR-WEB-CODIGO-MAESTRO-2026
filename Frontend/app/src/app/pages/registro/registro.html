@@ -1,7 +1,8 @@
 <div class="main-content">
   <form
     [formGroup]="formularioRegistro"
-    (ngSubmit)="registrarUsuario()"
+    (ngSubmit)="onSubmit()"
+    novalidate
     class="form-registro"
   >
 
@@ -15,11 +16,9 @@
       placeholder="Ej. Franco"
     >
 
-    @if (formularioRegistro.get('nombre')?.invalid && formularioRegistro.get('nombre')?.touched) {
-      <small>
-        El nombre es obligatorio.
-      </small>
-    }
+    <small *ngIf="formularioRegistro.get('nombre')?.invalid && formularioRegistro.get('nombre')?.touched">
+      El nombre es obligatorio.
+    </small>
 
     <label for="apellido">Apellido</label>
     <input
@@ -29,11 +28,9 @@
       placeholder="Ej. Santos"
     >
 
-    @if (formularioRegistro.get('apellido')?.invalid && formularioRegistro.get('apellido')?.touched) {
-      <small>
-        El apellido es obligatorio.
-      </small>
-    }
+    <small *ngIf="formularioRegistro.get('apellido')?.invalid && formularioRegistro.get('apellido')?.touched">
+      El apellido es obligatorio.
+    </small>
 
     <label for="email">Correo electrónico</label>
     <input
@@ -43,11 +40,9 @@
       placeholder="Ej. franco.santos@gmail.com"
     >
 
-    @if (formularioRegistro.get('email')?.invalid && formularioRegistro.get('email')?.touched) {
-      <small>
-        Ingrese un correo electrónico válido.
-      </small>
-    }
+    <small *ngIf="formularioRegistro.get('email')?.invalid && formularioRegistro.get('email')?.touched">
+      Ingrese un correo electrónico válido.
+    </small>
 
     <label for="password">Contraseña</label>
     <input
@@ -57,11 +52,9 @@
       placeholder="Mínimo 8 caracteres"
     >
 
-    @if (formularioRegistro.get('password')?.invalid && formularioRegistro.get('password')?.touched) {
-      <small>
-        La contraseña debe tener mínimo 8 caracteres.
-      </small>
-    }
+    <small *ngIf="formularioRegistro.get('password')?.invalid && formularioRegistro.get('password')?.touched">
+      La contraseña debe tener mínimo 8 caracteres.
+    </small>
 
     <label for="confirmPassword">Confirmar contraseña</label>
     <input
@@ -71,11 +64,9 @@
       placeholder="Repita la contraseña"
     >
 
-    @if (formularioRegistro.get('confirmPassword')?.invalid && formularioRegistro.get('confirmPassword')?.touched) {
-      <small>
-        Debe confirmar la contraseña.
-      </small>
-    }
+    <small *ngIf="formularioRegistro.get('confirmPassword')?.invalid && formularioRegistro.get('confirmPassword')?.touched">
+      Debe confirmar la contraseña.
+    </small>
 
     <label for="telefono">Teléfono</label>
     <input
@@ -104,24 +95,18 @@
     <select id="provincia" formControlName="provincia">
       <option value="">Seleccione una provincia</option>
 
-      @for (provincia of provincias; track provincia) {
-        <option [value]="provincia">
-          {{ provincia }}
-        </option>
-      }
+        <option *ngFor="let provincia of provincias" [value]="provincia">
+        {{ provincia }}
+      </option>
     </select>
 
-    @if (formularioRegistro.get('provincia')?.invalid && formularioRegistro.get('provincia')?.touched) {
-      <small>
-        Seleccione una provincia.
-      </small>
-    }
+    <small *ngIf="formularioRegistro.get('provincia')?.invalid && formularioRegistro.get('provincia')?.touched">
+      Seleccione una provincia.
+    </small>
 
-    @if (mensajeExito) {
-      <p class="success-message">
-        Registro completado con éxito!!
-      </p>
-    }
+    <p *ngIf="mensajeExito" class="success-message">
+      Registro completado con éxito!!
+    </p>
 
     <button type="submit">
       Registrarse

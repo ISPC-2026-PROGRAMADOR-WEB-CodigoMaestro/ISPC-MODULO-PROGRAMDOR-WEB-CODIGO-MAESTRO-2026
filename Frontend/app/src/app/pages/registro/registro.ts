@@ -6,6 +6,7 @@ import {
   ReactiveFormsModule,
   Validators
 } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-registro',
@@ -19,15 +20,7 @@ export class Registro {
   formularioRegistro: FormGroup;
   mensajeExito = false;
 
-  provincias: string[] = [
-    'Buenos Aires', 'Catamarca', 'Chaco', 'Chubut', 'Córdoba',
-    'Corrientes', 'Entre Ríos', 'Formosa', 'Jujuy', 'La Pampa',
-    'La Rioja', 'Mendoza', 'Misiones', 'Neuquén', 'Río Negro',
-    'Salta', 'San Juan', 'San Luis', 'Santa Cruz', 'Santa Fe',
-    'Santiago del Estero', 'Tierra del Fuego', 'Tucumán'
-  ];
-
-  constructor(private formBuilder: FormBuilder) {
+  constructor(private formBuilder: FormBuilder, private router: Router) {
     this.formularioRegistro = this.formBuilder.group({
       nombre: ['', Validators.required],
       apellido: ['', Validators.required],
@@ -41,12 +34,35 @@ export class Registro {
     });
   }
 
-  registrarUsuario() {
+  provincias: string[] = [
+    'Buenos Aires', 'Catamarca', 'Chaco', 'Chubut', 'Córdoba',
+    'Corrientes', 'Entre Ríos', 'Formosa', 'Jujuy', 'La Pampa',
+    'La Rioja', 'Mendoza', 'Misiones', 'Neuquén', 'Río Negro',
+    'Salta', 'San Juan', 'San Luis', 'Santa Cruz', 'Santa Fe',
+    'Santiago del Estero', 'Tierra del Fuego', 'Tucumán'
+  ];
+
+  onSubmit() {
+    console.log('Formulario enviado', this.formularioRegistro.valid);
+    Object.keys(this.formularioRegistro.controls).forEach((controlName) => {
+      const control = this.formularioRegistro.get(controlName);
+      console.log(
+        controlName,
+        'valid=',
+        control?.valid,
+        'value=',
+        control?.value
+      );
+    });
+
     if (this.formularioRegistro.valid) {
-      console.log(this.formularioRegistro.value);
+      console.log('Registro válido', this.formularioRegistro.value);
       this.mensajeExito = true;
-      this.formularioRegistro.reset();
+      this.router.navigate(['/login']).then(() => {
+        this.formularioRegistro.reset();
+      });
     } else {
+      console.log('Formulario inválido');
       this.formularioRegistro.markAllAsTouched();
     }
   }

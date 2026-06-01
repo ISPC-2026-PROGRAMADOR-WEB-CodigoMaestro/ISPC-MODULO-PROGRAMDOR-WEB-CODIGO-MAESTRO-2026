@@ -24,13 +24,9 @@
               placeholder="Ingresá tu email"
               formControlName="email">
 
-            @if (loginForm.get('email')?.touched && loginForm.get('email')?.invalid) {
-
-              <small class="text-danger">
-                Ingresá un email válido.
-              </small>
-
-            }
+            <small *ngIf="loginForm.get('email')?.touched && loginForm.get('email')?.invalid" class="text-danger">
+              Ingresá un email válido.
+            </small>
 
           </div>
 
@@ -46,13 +42,9 @@
               placeholder="Ingresá tu contraseña"
               formControlName="password">
 
-            @if (loginForm.get('password')?.touched && loginForm.get('password')?.invalid) {
-
-              <small class="text-danger">
-                La contraseña debe tener al menos 8 caracteres.
-              </small>
-
-            }
+            <small *ngIf="loginForm.get('password')?.touched && loginForm.get('password')?.invalid" class="text-danger">
+              La contraseña debe tener al menos 8 caracteres.
+            </small>
 
           </div>
 

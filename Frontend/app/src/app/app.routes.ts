@@ -11,6 +11,7 @@ import { DetalleProfesional } from './pages/detalle-profesional/detalle-profesio
 export const routes: Routes = [
 
   { path: '', component: Home },
+  { path: 'home', component: Home },
   { path: 'quienes-somos', component: QuienesSomos },
   { path: 'registro', component: Registro },
   { path: 'dashboard', component: Dashboard },

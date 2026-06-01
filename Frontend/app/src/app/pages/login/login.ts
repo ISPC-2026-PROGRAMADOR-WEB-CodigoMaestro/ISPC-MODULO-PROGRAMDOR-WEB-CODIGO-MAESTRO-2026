@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormBuilder } from '@angular/forms';
 import { Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -15,7 +16,7 @@ export class Login {
 
   loginForm;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private router: Router) {
 
     this.loginForm = this.fb.group({
 
@@ -50,6 +51,7 @@ export class Login {
     }
 
     console.log(this.loginForm.value);
+    this.router.navigate(['/home']);
 
   }
 
