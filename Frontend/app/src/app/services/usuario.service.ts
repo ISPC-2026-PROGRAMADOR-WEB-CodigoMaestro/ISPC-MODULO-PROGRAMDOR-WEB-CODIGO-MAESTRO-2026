@@ -15,6 +15,10 @@ export class UsuarioService {
     return this.http.post(this.url, usuario);
   }
 
+  loginUsuario(datosLogin: any): Observable<any> {
+    return this.http.post('http://127.0.0.1:8000/api/login/', datosLogin);
+  }
+
   getUsuarios(): Observable<any> {
     return this.http.get(this.url);
 }
