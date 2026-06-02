@@ -238,3 +238,22 @@ class UsuarioDetailView(APIView):
 
         usuario.delete()
         return Response({'mensaje': 'Usuario eliminado'}, status=204)
+    
+class LoginView(APIView):
+
+    def post(self, request):
+
+        try:
+
+            usuario = Usuario.objects.get(
+                email=request.data.get('email'),
+                contrasena=request.data.get('contrasena')
+            )
+
+            return Response(
+                {'mensaje': 'Login exitoso', 'id': usuario.id , 'nombre': usuario.nombre}, status=200)
+
+        except Usuario.DoesNotExist:
+
+            return Response(
+                {'error': 'Credenciales incorrectas'}, status=401)
