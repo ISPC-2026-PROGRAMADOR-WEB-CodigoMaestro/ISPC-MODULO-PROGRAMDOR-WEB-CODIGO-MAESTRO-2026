@@ -4,8 +4,8 @@ import { RouterLink } from '@angular/router';
 @Component({
   selector: 'app-profesionales',
   imports: [RouterLink],
-  templateUrl: './profesionales.html',
-  styleUrl: './profesionales.css',
+  templateUrl: './listado-profesionales.html',
+  styleUrl: './listado-profesionales.css',
 })
 
 export class Profesionales {
