@@ -1,13 +1,17 @@
 import { Component } from '@angular/core';
+import { NavEstandar } from '../../../shared/nav-estandar/nav-estandar';
 import { RouterLink } from '@angular/router';
+import { Header } from '../../../shared/header/header';
+import { Footer } from '../../../shared/footer/footer';
+
 
 @Component({
-  selector: 'app-home',
-  imports: [ RouterLink],
-  templateUrl: './home.html',
-  styleUrl: './home.css'
+  selector: 'app-dashboard-estandar',
+  imports: [ RouterLink, Header, NavEstandar, Footer],
+  templateUrl: './dashboard-estandar.html',
+  styleUrl: './dashboard-estandar.css',
 })
-export class Home {
+export class DashboardEstandar {
   imagenPrincipal = 
     {
       src: '/image/servimatch-laptop.jpg',
@@ -84,5 +88,4 @@ export class Home {
       respuesta: 'Podés revisar las calificaciones del profesional y comunicarte directamente para resolver cualquier inconveniente.'
     }
   ];
-
 }

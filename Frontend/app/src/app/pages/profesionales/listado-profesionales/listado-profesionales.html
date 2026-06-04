@@ -4,11 +4,11 @@
   </h2>
 </div>
 
-<div class="contenedor-cards">
+<section class="contenedor-cards">
 
   @for (profesional of profesionalesDestacados; track profesional.nombre) {
 
-    <div class="card" style="width: 18rem;">
+    <article class="card">
 
       <img
         [src]="profesional.imagen"
@@ -39,8 +39,8 @@
 
       </div>
 
-    </div>
+    </article>
 
   }
 
-</div>
+</section>
