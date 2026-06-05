@@ -2,6 +2,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from .models import Rol, Oficio, Ubicacion, Usuario
 from .serializers import (RolSerializer, OficioSerializer, UbicacionSerializer, UsuarioSerializer)
+from django.contrib.auth.hashers import check_password         # Se utiliza para verificar la contraseña durante el proceso de login
 
 ## ROL
 
@@ -242,16 +243,19 @@ class UsuarioDetailView(APIView):
 class LoginView(APIView):
 
     def post(self, request):
-
+        email=request.data.get('email')
+        contrasena=request.data.get('contrasena')
+        
         try:
+            usuario = Usuario.objects.get(email=email)
 
-            usuario = Usuario.objects.get(
-                email=request.data.get('email'),
-                contrasena=request.data.get('contrasena')
-            )
-
+            if check_password(contrasena, usuario.contrasena):
+                return Response(
+                    {'mensaje': 'Login exitoso', 'id': usuario.id , 'nombre': usuario.nombre}, status=200)
+            
             return Response(
                 {'mensaje': 'Login exitoso', 'id': usuario.id , 'nombre': usuario.nombre, 'id_rol': usuario.rol.id, 'rol': usuario.rol.nombre_rol}, status=200)
+
 
         except Usuario.DoesNotExist:
 

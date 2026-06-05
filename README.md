@@ -14,12 +14,30 @@ La propuesta de valor de ServiMatch se basa en brindar mayor confianza , segurid
 
 De esta manera, la plataforma busca fortalecer la conexión entre clientes y trabajadores de oficios de la provincia de Córdoba, promoviendo oportunidades laborales para los profesionales y ofreciendo una solución confiable, organizada y accesible para la contratación de servicios.
 
+## 📚 Documentacion del Proyecto 
+
+La documentacion completa del proyecto se encuentra en los siguientes enlaces:
+
+- Wiki del proyecto: https://github.com/ISPC-2026-PROGRAMADOR-WEB-CodigoMaestro/ISPC-MODULO-PROGRAMDOR-WEB-CODIGO-MAESTRO-2026/wiki
+- Documento del proyecto: https://docs.google.com/document/d/1lab8CbxWNB3KvPy3ZPNvWTfGJyCM0KocH8rGWxMXHig/edit?tab=t.0#heading=h.bw13mox95fkg
+- Documento técnico sprint 2: https://docs.google.com/document/d/19YDJa88u6C79yN3KCRt8ceqWWvXcy2N0nwVHMXMlOR8/edit?tab=t.0#heading=h.c2hyzepc9uid
+- Repositorio GitHub: https://github.com/ISPC-2026-PROGRAMADOR-WEB-CodigoMaestro/ISPC-MODULO-PROGRAMDOR-WEB-CODIGO-MAESTRO-2026
+
 ## 🚀 Tecnologías utilizadas
 
 - Frontend: Angular + Bootstrap
 - Backend: Django + Django Rest Framework
 - Base de datos: MySQL
 - Control de versiones: Git y GitHub
+
+## 🏗️ Arquitectura
+
+ServiMatch utiliza una arquitectura cliente-servidor:
+
+- Frontend desarrollado en Angular.
+- Backend desarrollado en Django REST Framework.
+- Comunicación mediante APIs REST.
+- Persistencia de datos en MySQL.
 
 ## ⚙️ Instrucciones de instalación
 
@@ -90,38 +108,16 @@ http://localhost:4200
 5. Puede visualizar información detallada de cada profesional.
 6. Puede establecer contacto directo con el profesional seleccionado.
 
-## 📋 Especificación de Requerimientos
-
-### Requerimientos Funcionales 
-
-- **RF1:** El usuario podrá registrarse e iniciar sesión en la plataforma mediante credenciales.
-
-- **RF2:** El usuario podrá buscar profesionales según el tipo de oficio y la ubicación.
-
-- **RF3:** El usuario podrá visualizar el perfil de cada profesional, incluyendo datos personales, experiencia, calificaciones y trabajos realizados.
-
-- **RF4:** El usuario podrá contactar directamente al profesional a través de la plataforma.
-
-- **RF5:** El administrador podrá validar perfiles de profesionales y gestionar los usuarios registrados.
-
-
-### Requerimientos no funcionales
-
-- **RNF1:** Diseño Responsivo: La interfaz debe adaptarse automáticamente a pantallas de móviles, tablets y computadoras (usando los breakpoints de Bootstrap).
-
-- **RNF2:** Validación: El sistema no debe permitir el envío de formularios con campos vacíos o formatos de correo electrónico inválidos (validación del lado del cliente).
-
-- **RNF3:** Integridad de Datos (Persistencia): El sistema debe garantizar que, ante una caída del servidor, los datos almacenados en la base de datos MySQL no sufran inconsistencias ni pérdidas, asegurando la recuperación del último estado estable.
-
 ## 🌿 Flujo de Trabajo
 
 El equipo utiliza una estrategia basada en Git Flow:
 
-- main: versión estable del proyecto.
-- develop: rama de integración de funcionalidades.
+- main: versión estable entregable.
+- release: rama de preparación para entregas y validaciones.
+- develop: rama de integración continua.
 - feature/nombre-integrante: desarrollo individual de funcionalidades.
 - Pull Request hacia develop para revisión e integración.
-- Una vez validadas las funcionalidades, develop se integra en main.
+- Una vez validadas las funcionalidades, develop se integra en release y posteriormente en main.
 
 ## 👥 Integrantes del equipo
 
