@@ -50,7 +50,7 @@ export class Registro {
 
       const usuario = {
         ...this.formularioRegistro.value,
-        rol: 10
+        rol: 11
       };
 
       console.log("Enviando al servidor...");
