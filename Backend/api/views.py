@@ -251,7 +251,7 @@ class LoginView(APIView):
             )
 
             return Response(
-                {'mensaje': 'Login exitoso', 'id': usuario.id , 'nombre': usuario.nombre}, status=200)
+                {'mensaje': 'Login exitoso', 'id': usuario.id , 'nombre': usuario.nombre, 'id_rol': usuario.rol.id, 'rol': usuario.rol.nombre_rol}, status=200)
 
         except Usuario.DoesNotExist:
 

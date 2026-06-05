@@ -19,7 +19,70 @@
 
       <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-2">
 
+        @if (!usuarioLogueado) {
+
         <li class="nav-item">
+          <a
+            class="nav-link"
+            routerLink="/"
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: true }">
+
+            Inicio
+
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a
+            class="nav-link"
+            routerLink="/quienes-somos"
+            routerLinkActive="active">
+
+            Quiénes Somos
+
+          </a>
+        </li>
+
+        <!-- <li class="nav-item">
+          <a
+            class="nav-link"
+            routerLink="/profesionales"
+            routerLinkActive="active">
+
+            Profesionales
+
+          </a>
+        </li> -->
+
+        <li class="nav-item">
+          <a
+            class="nav-link"
+            routerLink="/registro"
+            routerLinkActive="active">
+
+            Registro
+
+          </a>
+        </li>
+
+        <li class="nav-item ms-lg-3">
+          <a
+            class="btn-login"
+            routerLink="/login"
+            routerLinkActive="active">
+
+            Iniciar Sesión
+
+          </a>
+        </li>
+
+        }
+
+      <!--Barra de Navegacion para usuarios estandar-->
+        @if (usuarioLogueado?.id_rol === 11) {
+
+          <li class="nav-item">
           <a
             class="nav-link"
             routerLink="/"
@@ -74,6 +137,80 @@
 
           </a>
         </li>
+
+        }
+
+        <!--Barra de Navegacion para usuarios profesionales -->
+        @if (usuarioLogueado?.id_rol === 10) {
+
+          <li class="nav-item">
+          <a
+            class="nav-link"
+            routerLink="/"
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: true }">
+
+            Inicio
+
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a
+            class="nav-link"
+            routerLink="/quienes-somos"
+            routerLinkActive="active">
+
+            Quiénes Somos
+
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a
+            class="nav-link"
+            routerLink="/profesionales"
+            routerLinkActive="active">
+
+            Profesionales
+
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a
+            class="nav-link"
+            routerLink="/profesionales"
+            routerLinkActive="active">
+
+            Formulario Para Profesionales
+
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a
+            class="nav-link"
+            routerLink="/registro"
+            routerLinkActive="active">
+
+            Registro
+
+          </a>
+        </li>
+
+        <li class="nav-item ms-lg-3">
+          <a
+            class="btn-login"
+            routerLink="/login"
+            routerLinkActive="active">
+
+            Iniciar Sesión
+
+          </a>
+        </li>
+
+        }
 
 
       </ul>

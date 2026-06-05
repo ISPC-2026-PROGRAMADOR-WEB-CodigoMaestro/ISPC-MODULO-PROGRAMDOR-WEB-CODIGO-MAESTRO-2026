@@ -5,7 +5,7 @@ import { Registro } from './pages/auth/registro/registro';
 import { Profesionales } from './pages/profesionales/listado-profesionales/listado-profesionales';
 import { Login } from './pages/auth/login/login';
 import { DetalleProfesional } from './pages/profesionales/detalle-profesional/detalle-profesional';
-import { DashboardEstandar } from './pages/dashboard/dashboard-estandar/dashboard-estandar';
+
 
 export const routes: Routes = [
 
@@ -18,7 +18,7 @@ export const routes: Routes = [
   { path: 'profesionales', component: Profesionales },
   { path: 'login', component: Login },
   { path: 'detalle-profesional/:id', component: DetalleProfesional },
-  { path: 'dashboard-estandar', component: DashboardEstandar },
+
 
   { path: '**', redirectTo: 'home' }
 
