@@ -43,8 +43,12 @@ export class Login {
   this.usuarioService.loginUsuario(datosLogin).subscribe( data => {
 
     if (data.id > 0)
-    {alert('Login exitoso');
-    this.router.navigate(['/home']);
+    {
+    localStorage.setItem('usuario', JSON.stringify(data));
+    alert('Login exitoso');
+    this.router.navigate(['/home']).then(() => {
+     window.location.reload();
+    });
     }
 
     else {this.loginForm.markAllAsDirty();

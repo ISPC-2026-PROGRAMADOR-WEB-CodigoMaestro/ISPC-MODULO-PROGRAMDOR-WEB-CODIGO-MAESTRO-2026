@@ -1,17 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { NavEstandar } from './nav-estandar';
+import { PaginaNotFound } from './pagina-not-found';
 
-describe('NavEstandar', () => {
-  let component: NavEstandar;
-  let fixture: ComponentFixture<NavEstandar>;
+describe('PaginaNotFound', () => {
+  let component: PaginaNotFound;
+  let fixture: ComponentFixture<PaginaNotFound>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [NavEstandar],
+      imports: [PaginaNotFound],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(NavEstandar);
+    fixture = TestBed.createComponent(PaginaNotFound);
     component = fixture.componentInstance;
     await fixture.whenStable();
   });

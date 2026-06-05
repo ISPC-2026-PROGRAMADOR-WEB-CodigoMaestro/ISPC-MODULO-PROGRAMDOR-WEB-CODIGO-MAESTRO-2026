@@ -254,7 +254,8 @@ class LoginView(APIView):
                     {'mensaje': 'Login exitoso', 'id': usuario.id , 'nombre': usuario.nombre}, status=200)
             
             return Response(
-                {'error': 'Credenciales incorrectas'}, status=401)
+                {'mensaje': 'Login exitoso', 'id': usuario.id , 'nombre': usuario.nombre, 'id_rol': usuario.rol.id, 'rol': usuario.rol.nombre_rol}, status=200)
+
 
         except Usuario.DoesNotExist:
 
