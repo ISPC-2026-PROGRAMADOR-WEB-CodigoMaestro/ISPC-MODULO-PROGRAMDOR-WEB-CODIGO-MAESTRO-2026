@@ -1,0 +1,200 @@
+<section>
+
+<article class="container my-5 informacion-profesional">
+
+  <h2 class="titleSeccion">
+    Información profesional
+  </h2>
+
+  <div class="card border-0 shadow-sm rounded-5 p-4">
+
+    <p>
+    Mi nombre es <strong>{{ profesional.nombre }}</strong> y me desempeño como <strong>{{ profesional.oficio }}</strong>.
+    Cuento con <strong>{{ profesional.experiencia }}</strong> realizando trabajos profesionales para hogares, comercios y empresas, ofreciendo siempre soluciones seguras, eficientes y adaptadas a las necesidades de cada cliente.
+    A lo largo de mi trayectoria he trabajado en distintos proyectos de instalación, mantenimiento y reparación, priorizando la calidad del servicio, la responsabilidad y la satisfacción de quienes confían en mi trabajo.
+    </p>
+
+    <p>
+    Actualmente desarrollo mis actividades en la zona de <strong>{{ profesional.ubicacion }}</strong>, brindando atención personalizada, asesoramiento técnico y compromiso en cada proyecto realizado.
+    </p>
+
+    <p>
+    📞 <strong>Contacto:</strong>
+    {{ profesional.telefono }}
+    </p>
+
+    <p>
+    🕒 <strong>Jornada laboral:</strong>
+    {{ profesional.jornada }}
+    </p>
+
+    <p>
+    💳 <strong>Modalidad de pago:</strong>
+    {{ profesional.pagos }}
+    </p>
+
+    <p>
+    📝 <strong>Descripción:</strong>
+    {{ profesional.descripcion }}
+    </p>
+
+  </div>
+
+</article>
+
+<article class="container-fluid my-5 trabajos-destacados">
+
+  <h2 class="titleSeccion">
+    Trabajos destacados de {{ profesional.nombre }}
+  </h2>
+
+  <div id="carouselTrabajos" class="carousel slide">
+
+    <div class="carousel-indicators">
+
+      @for (trabajo of profesional.trabajos; track trabajo.titulo; let i = $index) {
+        <button
+          type="button"
+          data-bs-target="#carouselTrabajos"
+          [attr.data-bs-slide-to]="i"
+          [class.active]="i === 0"
+          [attr.aria-current]="i === 0 ? 'true' : null"
+          [attr.aria-label]="'Slide ' + (i + 1)">
+        </button>
+      }
+
+    </div>
+
+    <div class="carousel-inner">
+
+     @for (trabajo of profesional.trabajos; track trabajo.titulo; let i = $index) {
+        <div class="carousel-item" [class.active]="i === 0">
+
+          <img
+            [src]="trabajo.imagen"
+            class="d-block rounded imagen-trabajo"
+            [alt]="trabajo.titulo">
+
+          <div class="carousel-caption d-none d-md-block">
+
+            <h5>
+              {{ trabajo.titulo }}
+            </h5>
+
+            <p>
+              {{ trabajo.descripcion }}
+            </p>
+
+          </div>
+
+        </div>
+      }
+
+    </div>
+
+    <button
+      class="carousel-control-prev"
+      type="button"
+      data-bs-target="#carouselTrabajos"
+      data-bs-slide="prev">
+
+      <span
+        class="carousel-control-prev-icon"
+        aria-hidden="true">
+      </span>
+
+      <span class="visually-hidden">
+        Anterior
+      </span>
+
+    </button>
+
+    <button
+      class="carousel-control-next"
+      type="button"
+      data-bs-target="#carouselTrabajos"
+      data-bs-slide="next">
+
+      <span
+        class="carousel-control-next-icon"
+        aria-hidden="true">
+      </span>
+
+      <span class="visually-hidden">
+        Siguiente
+      </span>
+
+    </button>
+
+  </div>
+
+</article>
+
+<article class="container my-5 valoraciones-profesional">
+
+  <h2 class="titleSeccion">
+    Valoraciones del profesional
+  </h2>
+
+  @for (valoracion of profesional.valoraciones; track valoracion.criterio) {
+    <div class="mb-4">
+
+      <span class="fw-bold">
+        {{ valoracion.criterio }}
+      </span>
+
+      <div
+        class="progress"
+        role="progressbar"
+        [attr.aria-valuenow]="valoracion.porcentaje"
+        aria-valuemin="0"
+        aria-valuemax="100">
+
+        <div
+          class="progress-bar"
+          [style.width.%]="valoracion.porcentaje">
+
+          {{ valoracion.porcentaje }}%
+
+        </div>
+
+      </div>
+
+    </div>
+  }
+
+</article>
+
+<article class="container my-5">
+
+  <h2 class="titleSeccion">Reseñas</h2>
+
+  @for (resena of profesional.resenas; track resena.nombre) {
+    <div class="card border-0 shadow-sm rounded-4 mb-3">
+
+      <div class="card-body">
+
+        <figure class="mb-0">
+
+          <blockquote class="blockquote">
+            <p>
+              "{{ resena.comentario }}"
+            </p>
+          </blockquote>
+
+          <figcaption class="blockquote-footer mb-0">
+            {{ resena.nombre }}
+            <cite> — {{ resena.servicio }}</cite>
+          </figcaption>
+
+        </figure>
+
+      </div>
+
+    </div>
+  }
+
+</article>
+
+</section>
+

@@ -11,7 +11,9 @@ from .views import (
     UbicacionDetailView,
 
     UsuarioView,
-    UsuarioDetailView
+    UsuarioDetailView,
+
+    LoginView
 )
 
 urlpatterns = [
@@ -31,4 +33,7 @@ urlpatterns = [
     ## USUARIO
     path('usuarios/', UsuarioView.as_view()),
     path('usuarios/<int:pk>/', UsuarioDetailView.as_view()),
+    
+    ## LOGIN
+    path('login/', LoginView.as_view()),
 ]

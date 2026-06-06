@@ -9,10 +9,9 @@
 }
 
 .nav-link{
-  color: #d1d5db; 
-  font-weight: 500;
-  transition: all 0.3s ease;
   position: relative;
+  display: inline-block;
+  color: white;
 }
 
 .nav-link:hover{
@@ -23,7 +22,7 @@
 .nav-link::after{
   content: '';
   position: absolute;
-  width: 0%;
+  width: 0;
   height: 2px;
   left: 0;
   bottom: -4px;
@@ -31,7 +30,8 @@
   transition: width 0.3s ease;
 }
 
-.nav-link:hover::after{
+.nav-link:hover::after,
+.nav-link.active::after{
   width: 100%;
 }
 
@@ -51,4 +51,19 @@
 
 .btn-warning:hover{
   transform: scale(1.05);
+}
+
+.btn-login {
+  background-color: #ffc107;
+  color: #000;
+  font-weight: 600;
+  padding: 8px 24px;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+.btn-login:hover {
+  background-color: #ffca2c;
+  color: #000;
 }

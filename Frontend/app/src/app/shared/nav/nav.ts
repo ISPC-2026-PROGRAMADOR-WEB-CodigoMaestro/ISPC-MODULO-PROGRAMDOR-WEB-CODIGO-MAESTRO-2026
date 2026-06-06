@@ -1,50 +1,37 @@
-import { Component } from '@angular/core';
-
-import {
-  RouterLink,
-  RouterLinkActive
-} from '@angular/router';
-
-import { CommonModule } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
+import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 
 @Component({
   selector: 'app-nav',
-
-  standalone: true,
-
-  imports: [
-    RouterLink,
-    RouterLinkActive,
-    CommonModule
-  ],
-
+  imports: [RouterLink, RouterLinkActive],
   templateUrl: './nav.html',
   styleUrl: './nav.css',
 })
-export class Nav {
+export class Nav implements OnInit {
 
-  links = [
+  usuarioLogueado: any = null;
 
-    {
-      nombre: 'Inicio',
-      ruta: '/'
-    },
+  constructor(private router: Router) {}
 
-    {
-      nombre: 'Quiénes Somos',
-      ruta: '/quienes-somos'
-    },
+  ngOnInit(): void {
 
-    {
-      nombre: 'Profesionales',
-      ruta: '/profesionales'
-    },
+    const usuario = localStorage.getItem('usuario');
 
-    {
-      nombre: 'Regístrate',
-      ruta: '/registro'
+    if (usuario) {
+      this.usuarioLogueado = JSON.parse(usuario);
     }
 
-  ];
+  }
+
+  logout() {
+
+    localStorage.removeItem('usuario');
+    this.usuarioLogueado = null;
+    
+    this.router.navigate(['/']).then(() => {
+    window.location.reload();
+  });
+
+  }
 
 }

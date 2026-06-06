@@ -1,0 +1,130 @@
+<div class="main-content">
+
+  <section>
+
+  <form
+    [formGroup]="formularioRegistro"
+    (ngSubmit)="registrarUsuario()"
+    novalidate
+    class="form-registro"
+  >
+
+    <h2>Registro de Usuario</h2>
+
+    <label for="nombre">Nombre</label>
+    <input
+      type="text"
+      id="nombre"
+      formControlName="nombre"
+      placeholder="Ej. Franco"
+    >
+
+    @if (formularioRegistro.get('nombre')?.invalid && formularioRegistro.get('nombre')?.touched) {
+      <small>
+        El nombre es obligatorio.
+      </small>
+    }
+
+    @if (formularioRegistro.get('nombre')?.errors?.['pattern'] && formularioRegistro.get('nombre')?.touched) {
+      <small>
+        El nombre solo puede contener letras.
+      </small>
+    }
+    
+
+    <label for="email">Correo electrónico</label>
+    <input
+      type="email"
+      id="email"
+      formControlName="email"
+      placeholder="Ej. franco.santos@gmail.com"
+    >
+
+    @if (formularioRegistro.get('email')?.invalid && formularioRegistro.get('email')?.touched) {
+      <small>
+        Ingrese un correo electrónico válido.
+      </small>
+    }
+
+    <label for="contrasena">Contraseña</label>
+    <input
+      type="password"
+      id="contrasena"
+      formControlName="contrasena"
+      placeholder="Mínimo 8 caracteres"
+    >
+
+    @if (formularioRegistro.get('contrasena')?.invalid && formularioRegistro.get('contrasena')?.touched) {
+      <small>
+        La contraseña debe tener mínimo 8 caracteres.
+      </small>
+    }
+
+    <label for="dni">DNI</label>
+    <input 
+      type="text" 
+      id="dni" 
+      formControlName="dni" 
+      placeholder="Ej. 40111222"
+      >
+
+
+    @if (formularioRegistro.get('dni')?.invalid && formularioRegistro.get('dni')?.touched) {
+      <small>
+        El DNI es obligatorio.
+      </small>
+    }
+
+    @if (formularioRegistro.get('dni')?.errors?.['pattern'] && formularioRegistro.get('dni')?.touched) {
+      <small>
+        El DNI debe contener solo números.
+      </small>
+    }
+
+        <label for="ubicacion">Ciudad</label>
+    <select id="ubicacion" formControlName="ubicacion">
+      <option [ngValue]="null">
+        Seleccione una ciudad
+      </option>
+
+      @for (ubicacion of ubicaciones; track ubicacion.id) {
+        <option [value]="ubicacion.id">
+          {{ ubicacion.ciudad }}
+        </option>
+      }
+    </select>
+
+    @if (formularioRegistro.get('ubicacion')?.invalid && formularioRegistro.get('ubicacion')?.touched) {
+      <small>
+        Debe seleccionar una ciudad.
+      </small>
+    }
+
+    <label for="oficio">Oficio (Opcional)</label>
+    <select id="oficio" formControlName="oficio">
+      <option [ngValue]="null">
+        No soy un profesional de oficio
+      </option>
+
+      @for (oficio of oficios; track oficio.id) {
+        <option [value]="oficio.id">
+          {{ oficio.nombre_oficio }}
+        </option>
+      }
+    </select>
+
+    @if (mensajeExito) {
+      <p class="success-message">
+        Registro completado con éxito!!
+      </p>
+    }
+
+    <button type="submit">
+      Registrarse
+    </button>
+
+  </form>
+
+  </section>
+
+</div>

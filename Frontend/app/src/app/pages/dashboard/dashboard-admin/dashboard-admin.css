@@ -1,0 +1,149 @@
+.hero-quienes-somos {
+  background-color: #f1f1f1;
+  color: rgb(6, 28, 122);
+  padding: 80px 20px;
+  margin-bottom: 30px;
+}
+
+.hero-quienes-somos h1 {
+  font-weight: 800;
+}
+
+.hero-quienes-somos p {
+  max-width: 850px;
+  margin: 0 auto;
+}
+
+.container {
+  max-width: 1200px;
+}
+
+section {
+  background-color: white;
+  padding: 30px;
+  border-radius: 14px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+}
+
+section h2 {
+  color: #0f172a;
+  font-weight: 800;
+  margin-bottom: 20px;
+}
+
+.card {
+  border-radius: 12px;
+  border: none;
+  transition: 0.3s;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+
+.estadistica-card {
+  min-height: 130px;
+}
+
+.estadistica-0 {
+  border-top: 5px solid #0d6efd;
+}
+
+.estadistica-1 {
+  border-top: 5px solid #198754;
+}
+
+.estadistica-2 {
+  border-top: 5px solid #ffc107;
+}
+
+.estadistica-3 {
+  border-top: 5px solid #0dcaf0;
+}
+
+.estadistica-0 h2 {
+  color: #0d6efd;
+}
+
+.estadistica-1 h2 {
+  color: #198754;
+}
+
+.estadistica-2 h2 {
+  color: #d39e00;
+}
+
+.estadistica-3 h2 {
+  color: #0dcaf0;
+}
+
+.card h5 {
+  color: #0f172a;
+  font-weight: 700;
+}
+
+.card h2 {
+  font-size: 2rem;
+}
+
+.seccion-0 {
+  border-left: 6px solid #0d6efd;
+}
+
+.seccion-1 {
+  border-left: 6px solid #198754;
+}
+
+.seccion-2 {
+  border-left: 6px solid #ffc107;
+}
+
+section p {
+  color: #444;
+  line-height: 1.8;
+}
+
+section ul {
+  padding-left: 22px;
+}
+
+section li {
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.accion-btn {
+  border-radius: 6px;
+  font-weight: 500;
+  padding: 10px;
+}
+
+.btn-warning {
+  color: #000;
+}
+
+.btn-info {
+  color: #fff;
+}
+
+.bienvenida-admin {
+  background-color: #cfe2ff;
+  border: 1px solid #8bb9ff;
+  color: #002b6b;
+  border-radius: 6px;
+  padding: 20px;
+}
+
+.bienvenida-admin h4 {
+  font-weight: 700;
+}
+
+@media (max-width: 768px) {
+  .hero-quienes-somos {
+    padding: 55px 20px;
+  }
+
+  .hero-quienes-somos h1 {
+    font-size: 2.5rem;
+  }
+}

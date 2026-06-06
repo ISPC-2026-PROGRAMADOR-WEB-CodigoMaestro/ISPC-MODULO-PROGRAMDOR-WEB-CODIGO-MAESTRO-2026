@@ -8,8 +8,6 @@ import { Footer } from './shared/footer/footer';
 @Component({
   selector: 'app-root',
 
-  standalone: true,
-
   imports: [
     RouterOutlet,
     Header,
@@ -25,4 +23,3 @@ export class App {
   protected readonly title = signal('app');
 
 }
-

@@ -1,0 +1,46 @@
+<div class="titulo-destacado">
+  <h2>
+    Profesionales Destacados
+  </h2>
+</div>
+
+<section class="contenedor-cards">
+
+  @for (profesional of profesionalesDestacados; track profesional.nombre) {
+
+    <article class="card">
+
+      <img
+        [src]="profesional.imagen"
+        class="card-img-top"
+        [alt]="profesional.nombre"
+      >
+
+      <div class="card-body">
+
+        <h5 class="card-title">
+          {{ profesional.nombre }}
+        </h5>
+
+        <p class="card-text">
+          {{ profesional.oficio }} <br>
+          {{ profesional.ubicacion }} <br>
+          {{ profesional.calificacion }} <br>
+          {{ profesional.experiencia }}
+        </p>
+
+        <a
+            [routerLink]="['/detalle-profesional', profesional.id]"
+            class="btn btn-primary btn-perfil">
+
+            Ver perfil
+
+        </a>
+
+      </div>
+
+    </article>
+
+  }
+
+</section>
