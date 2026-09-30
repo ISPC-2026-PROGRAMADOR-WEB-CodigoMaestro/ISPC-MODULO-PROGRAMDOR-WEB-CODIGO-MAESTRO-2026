@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/6.0/ref/settings/
 """
 
 from pathlib import Path
+from decouple import config
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -20,13 +21,17 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/6.0/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-!c(ggpzky_=$js=(5siajahg9u$8ke0*&x(d(3y_#h5+4_+xih'
+SECRET_KEY = config(
+    'SECRET_KEY',
+    default='django-insecure-!c(ggpzky_=$js=(5siajahg9u$8ke0*&x(d(3y_#h5+4_+xih'
+)
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = config('DEBUG', default=True, cast=bool)
 
-ALLOWED_HOSTS = ["192.168.1.57", "localhost", "127.0.0.1"]
+ALLOWED_HOSTS = config(
+    'ALLOWED_HOSTS',
+    default='192.168.1.57,localhost,127.0.0.1'
+).split(',')
 
 
 # Application definition
@@ -76,8 +81,6 @@ WSGI_APPLICATION = 'config.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/6.0/ref/settings/#databases
-
-from decouple import config
 
 DATABASES = {
     'default': {
