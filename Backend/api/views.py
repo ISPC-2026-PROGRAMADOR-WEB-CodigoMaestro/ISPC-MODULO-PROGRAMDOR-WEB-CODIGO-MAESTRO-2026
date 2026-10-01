@@ -191,6 +191,8 @@ class UsuarioView(APIView):
         return Response(serializer.data, status=200)
 
     def post(self, request):
+        print("DATOS RECIBIDOS:", request.data)
+
         serializer = UsuarioSerializer(data=request.data)
 
         if serializer.is_valid():
