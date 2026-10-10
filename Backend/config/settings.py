@@ -49,6 +49,17 @@ INSTALLED_APPS = [
     'corsheaders',
 ]
 
+# Configuración de autenticación JWT para Django REST Framework
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'api.authentication.JWTAuthentication',
+    ],
+    'DEFAULT_THROTTLE_RATES': {
+        'login': '5/min',
+    },
+}
+
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
