@@ -455,6 +455,67 @@ class UsuarioDetailView(APIView):
 
         return Response(serializer.errors, status=400)
 
+    
+    # MODIFICAR PARCIALMENTE UN USUARIO
+    # SOLO ADMINISTRADORES
+    def patch(self, request, pk):
+
+        if (
+            request.user.rol is None
+            or request.user.rol.nombre_rol != 'Administrador'
+        ):
+            logger.warning(
+                "Modificación denegada - Usuario ID: %s - "
+                "Usuario objetivo ID: %s - Acción: PATCH",
+                request.user.id,
+                pk
+            )
+
+            return Response(
+                {
+                    'error':
+                    'No tenés permisos para modificar este usuario'
+                },
+                status=403
+            )
+
+        usuario = self.get_object(pk)
+
+        if usuario is None:
+            return Response(
+                {'error': 'Usuario no encontrado'},
+                status=404
+            )
+
+        # ACTUALIZACIÓN PARCIAL
+        serializer = UsuarioSerializer(
+            usuario,
+            data=request.data,
+            partial=True
+        )
+
+        if serializer.is_valid():
+            serializer.save()
+
+            logger.info(
+                "Modificación de usuario - Administrador ID: %s - "
+                "Usuario modificado ID: %s - Acción: PATCH - "
+                "Resultado: exitoso",
+                request.user.id,
+                pk
+            )
+
+            return Response(
+                serializer.data,
+                status=200
+            )
+
+        return Response(
+            serializer.errors,
+            status=400
+        )
+
+
 
     def delete(self, request, pk):
 
