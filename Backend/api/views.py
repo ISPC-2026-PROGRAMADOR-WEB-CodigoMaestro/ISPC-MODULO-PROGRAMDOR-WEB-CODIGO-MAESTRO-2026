@@ -8,6 +8,11 @@ from .serializers import (RolSerializer, OficioSerializer, UbicacionSerializer, 
 from django.contrib.auth.hashers import check_password         # Se utiliza para verificar la contraseña durante el proceso de login
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.throttling import AnonRateThrottle
+import logging
+
+
+
+logger = logging.getLogger(__name__)
 
 ## ROL
 
@@ -322,8 +327,6 @@ class UbicacionDetailView(APIView):
 
 ## USUARIO
 
-## USUARIO
-
 class UsuarioView(APIView):
 
     def get_permissions(self):
@@ -332,9 +335,16 @@ class UsuarioView(APIView):
 
         return [IsAuthenticated()]
 
+
     def get(self, request):
 
         if request.user.rol.nombre_rol != 'Administrador':
+
+            logger.warning(
+                "Acceso denegado - Usuario ID: %s - Recurso: listado de usuarios - Acción: GET",
+                request.user.id
+            )
+
             return Response(
                 {'error': 'No tenés permisos para consultar el listado de usuarios'},
                 status=403
@@ -343,6 +353,7 @@ class UsuarioView(APIView):
         usuarios = Usuario.objects.all()
         serializer = UsuarioSerializer(usuarios, many=True)
         return Response(serializer.data, status=200)
+
 
     def post(self, request):
         serializer = UsuarioSerializer(data=request.data)
@@ -386,6 +397,7 @@ class UsuarioDetailView(APIView):
         serializer = UsuarioSerializer(usuario)
         return Response(serializer.data, status=200)
 
+
     def put(self, request, pk):
 
         if request.user.rol.nombre_rol != 'Administrador':
@@ -397,19 +409,38 @@ class UsuarioDetailView(APIView):
         usuario = self.get_object(pk)
 
         if usuario is None:
-            return Response({'error': 'Usuario no encontrado'}, status=404)
+            return Response(
+                {'error': 'Usuario no encontrado'},
+                status=404
+            )
 
         serializer = UsuarioSerializer(usuario, data=request.data)
 
         if serializer.is_valid():
             serializer.save()
+
+            # Registrar modificación administrativa exitosa
+            logger.info(
+                "Modificación de usuario - Administrador ID: %s - Usuario modificado ID: %s - Acción: PUT - Resultado: exitoso",
+                request.user.id,
+                pk
+            )
+
             return Response(serializer.data, status=200)
 
         return Response(serializer.errors, status=400)
 
+
     def delete(self, request, pk):
 
         if request.user.rol.nombre_rol != 'Administrador':
+
+            logger.warning(
+                "Eliminación denegada - Usuario ID: %s - Recurso: usuario ID %s - Acción: DELETE",
+                request.user.id,
+                pk
+            )
+
             return Response(
                 {'error': 'No tenés permisos para eliminar este usuario'},
                 status=403
@@ -418,10 +449,21 @@ class UsuarioDetailView(APIView):
         usuario = self.get_object(pk)
 
         if usuario is None:
-            return Response({'error': 'Usuario no encontrado'}, status=404)
+            return Response(
+                {'error': 'Usuario no encontrado'},
+                status=404
+            )
 
         usuario.delete()
-        return Response({'mensaje': 'Usuario eliminado'}, status=204)
+
+        logger.info(
+            "Eliminación de usuario - Administrador ID: %s - Usuario eliminado ID: %s - Acción: DELETE - Resultado: exitoso",
+            request.user.id,
+            pk
+        )
+
+        return Response(status=204)
+
     
 class LoginRateThrottle(AnonRateThrottle):
     scope = 'login'
@@ -435,8 +477,15 @@ class LoginView(APIView):
         contrasena = request.data.get('contrasena')
 
         if not isinstance(email, str) or not isinstance(contrasena, str) or not email or not contrasena:
+
+            logger.warning(
+                "Intento de inicio de sesión fallido - Campos inválidos o vacíos"
+            )
+
             return Response(
-                {'error': 'Credenciales incorrectas'}, status=401)
+                {'error': 'Credenciales incorrectas'},
+                status=401
+            )
 
         try:
             usuario = Usuario.objects.get(email=email)
@@ -458,6 +507,11 @@ class LoginView(APIView):
                     algorithm='HS256'
                 )
 
+                logger.info(
+                    "Inicio de sesión exitoso - Usuario ID: %s",
+                    usuario.id
+                )
+
                 return Response(
                     {
                         'mensaje': 'Login exitoso',
@@ -468,10 +522,18 @@ class LoginView(APIView):
                         'access': token
                     }, status=200)
 
+            logger.warning(
+                "Intento de inicio de sesión fallido - Contraseña incorrecta"
+            )
+
             return Response(
                 {'error': 'Credenciales incorrectas'}, status=401)
 
         except Usuario.DoesNotExist:
+
+            logger.warning(
+                "Intento de inicio de sesión fallido - Usuario inexistente"
+            )
 
             return Response(
                 {'error': 'Credenciales incorrectas'}, status=401)
