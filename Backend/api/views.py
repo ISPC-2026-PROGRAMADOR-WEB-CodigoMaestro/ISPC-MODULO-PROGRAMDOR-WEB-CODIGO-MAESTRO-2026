@@ -365,6 +365,31 @@ class UsuarioView(APIView):
         return Response(serializer.errors, status=400)
 
 
+class ProfesionalesView(APIView):
+
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+
+        profesionales = Usuario.objects.filter(
+            rol__nombre_rol='Estándar',
+            oficio__isnull=False
+        )
+
+        datos = []
+
+        for profesional in profesionales:
+            datos.append({
+                'id': profesional.id,
+                'nombre': profesional.nombre,
+                'rol': profesional.rol_id,
+                'oficio': profesional.oficio_id,
+                'ubicacion': profesional.ubicacion_id
+            })
+
+        return Response(datos, status=200)
+
+
 class UsuarioDetailView(APIView):
 
     permission_classes = [IsAuthenticated]
