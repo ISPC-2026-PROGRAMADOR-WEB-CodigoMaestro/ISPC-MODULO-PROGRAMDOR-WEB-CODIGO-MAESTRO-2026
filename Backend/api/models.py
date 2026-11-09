@@ -27,7 +27,11 @@ class Usuario(models.Model):
     dni = models.CharField(max_length=8, unique=True, validators=[RegexValidator(regex=r'^\d{7,8}$')])    
     rol = models.ForeignKey(Rol, on_delete=models.PROTECT)
     oficio = models.ForeignKey(Oficio, on_delete=models.PROTECT, null=True)
-    ubicacion = models.ForeignKey(Ubicacion, on_delete=models.PROTECT, null=True)    
+    ubicacion = models.ForeignKey(Ubicacion, on_delete=models.PROTECT, null=True)  
+
+    @property
+    def is_authenticated(self):
+        return True  
 
     def __str__(self):
         return self.nombre
