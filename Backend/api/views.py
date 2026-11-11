@@ -4,7 +4,7 @@ from django.conf import settings
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from .models import Rol, Oficio, Ubicacion, Usuario
-from .serializers import (RolSerializer, OficioSerializer, UbicacionSerializer, UsuarioSerializer)
+from .serializers import (RolSerializer, OficioSerializer, UbicacionSerializer, UsuarioSerializer, ContactoSerializer)
 from django.contrib.auth.hashers import check_password         # Se utiliza para verificar la contraseña durante el proceso de login
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.throttling import AnonRateThrottle
@@ -325,6 +325,22 @@ class UbicacionDetailView(APIView):
         ubicacion.delete()
         return Response(status=204)
 
+## CONTACTO
+
+class ContactoView(APIView):
+
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request):
+
+        serializer = ContactoSerializer(data=request.data)
+
+        if serializer.is_valid():
+            serializer.save(usuario=request.user)
+            return Response(serializer.data, status=201)
+
+        return Response(serializer.errors, status=400)
+
 ## USUARIO
 
 class UsuarioView(APIView):
@@ -388,7 +404,6 @@ class ProfesionalesView(APIView):
             })
 
         return Response(datos, status=200)
-
 
 class UsuarioDetailView(APIView):
 
