@@ -65,3 +65,9 @@ class UsuarioSerializer(serializers.ModelSerializer):
         if 'contrasena' in validated_data:
             validated_data['contrasena'] = make_password(validated_data['contrasena'])
         return super().update(instance, validated_data)
+
+class PerfilSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Usuario
+        fields = ['nombre', 'email', 'dni', 'ubicacion', 'oficio']

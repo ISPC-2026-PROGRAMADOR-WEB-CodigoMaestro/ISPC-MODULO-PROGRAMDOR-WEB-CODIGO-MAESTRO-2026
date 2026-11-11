@@ -4,13 +4,11 @@ from django.conf import settings
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from .models import Rol, Oficio, Ubicacion, Usuario
-from .serializers import (RolSerializer, OficioSerializer, UbicacionSerializer, UsuarioSerializer, ContactoSerializer)
+from .serializers import (RolSerializer, OficioSerializer, UbicacionSerializer, UsuarioSerializer, ContactoSerializer, PerfilSerializer)
 from django.contrib.auth.hashers import check_password         # Se utiliza para verificar la contraseña durante el proceso de login
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.throttling import AnonRateThrottle
 import logging
-
-
 
 logger = logging.getLogger(__name__)
 
@@ -472,13 +470,11 @@ class UsuarioDetailView(APIView):
 
     
     # MODIFICAR PARCIALMENTE UN USUARIO
-    # SOLO ADMINISTRADORES
+    # ADMINISTRADOR O PROPIETARIO DE LA CUENTA
+    
     def patch(self, request, pk):
 
-        if (
-            request.user.rol is None
-            or request.user.rol.nombre_rol != 'Administrador'
-        ):
+        if not self.tiene_permiso(request, pk):
             logger.warning(
                 "Modificación denegada - Usuario ID: %s - "
                 "Usuario objetivo ID: %s - Acción: PATCH",
@@ -503,17 +499,44 @@ class UsuarioDetailView(APIView):
             )
 
         # ACTUALIZACIÓN PARCIAL
-        serializer = UsuarioSerializer(
-            usuario,
-            data=request.data,
-            partial=True
+
+        es_administrador = (
+            request.user.rol is not None
+            and request.user.rol.nombre_rol == 'Administrador'
         )
+
+        if es_administrador:
+            serializer = UsuarioSerializer(
+                usuario,
+                data=request.data,
+                partial=True
+            )
+        else:
+            campos_permitidos = {
+                'nombre',
+                'email',
+                'dni',
+                'ubicacion',
+                'oficio'
+            }
+
+            if not set(request.data.keys()).issubset(campos_permitidos):
+                return Response(
+                    {'error': 'Intentaste modificar campos no permitidos'},
+                    status=403
+                )
+
+            serializer = PerfilSerializer(
+                usuario,
+                data=request.data,
+                partial=True
+            )
 
         if serializer.is_valid():
             serializer.save()
 
             logger.info(
-                "Modificación de usuario - Administrador ID: %s - "
+                "Modificación de usuario - Usuario ID: %s - "
                 "Usuario modificado ID: %s - Acción: PATCH - "
                 "Resultado: exitoso",
                 request.user.id,
