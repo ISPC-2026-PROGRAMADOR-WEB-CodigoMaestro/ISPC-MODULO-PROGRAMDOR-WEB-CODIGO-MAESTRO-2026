@@ -557,7 +557,7 @@ class UsuarioDetailView(APIView):
 
     def delete(self, request, pk):
 
-        if request.user.rol.nombre_rol != 'Administrador':
+        if not self.tiene_permiso(request, pk):
 
             logger.warning(
                 "Eliminación denegada - Usuario ID: %s - Recurso: usuario ID %s - Acción: DELETE",
@@ -581,7 +581,7 @@ class UsuarioDetailView(APIView):
         usuario.delete()
 
         logger.info(
-            "Eliminación de usuario - Administrador ID: %s - Usuario eliminado ID: %s - Acción: DELETE - Resultado: exitoso",
+            "Eliminación de usuario - Usuario ID: %s - Usuario eliminado ID: %s - Acción: DELETE - Resultado: exitoso",
             request.user.id,
             pk
         )
