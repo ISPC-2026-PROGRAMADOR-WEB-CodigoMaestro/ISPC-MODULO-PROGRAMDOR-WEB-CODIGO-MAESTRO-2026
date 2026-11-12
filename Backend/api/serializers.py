@@ -36,7 +36,7 @@ class UsuarioSerializer(serializers.ModelSerializer):
                 'write_only': True,
                 'required': False
             },
-            'rol': {'read_only': True}
+            'rol': {'required': False}
         }
 
     def validate(self, attrs):
