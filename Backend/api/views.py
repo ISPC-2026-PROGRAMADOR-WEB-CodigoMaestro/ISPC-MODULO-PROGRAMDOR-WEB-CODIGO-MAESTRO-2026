@@ -3,8 +3,8 @@ from datetime import datetime, timedelta, timezone
 from django.conf import settings
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from .models import Rol, Oficio, Ubicacion, Usuario
-from .serializers import (RolSerializer, OficioSerializer, UbicacionSerializer, UsuarioSerializer, ContactoSerializer, PerfilSerializer)
+from .models import Rol, Oficio, Ubicacion, Usuario, Favorito
+from .serializers import (RolSerializer, OficioSerializer, UbicacionSerializer, UsuarioSerializer, ContactoSerializer, PerfilSerializer, FavoritoSerializer)
 from django.contrib.auth.hashers import check_password         # Se utiliza para verificar la contraseña durante el proceso de login
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.throttling import AnonRateThrottle
@@ -661,3 +661,45 @@ class LoginView(APIView):
 
             return Response(
                 {'error': 'Credenciales incorrectas'}, status=401)
+
+
+## FAVORITOS
+
+class FavoritoView(APIView):
+
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        favoritos = Favorito.objects.filter(usuario=request.user)
+        serializer = FavoritoSerializer(favoritos, many=True)
+        return Response(serializer.data, status=200)
+
+    def post(self, request):
+        profesional_id = request.data.get('profesional')
+
+        if not Usuario.objects.filter(id=profesional_id, rol__nombre_rol='Estándar', oficio__isnull=False).exists():
+            return Response({'error': 'Profesional no encontrado'}, status=404)
+
+        if str(profesional_id) == str(request.user.id):
+            return Response({'error': 'No podés agregarte a favoritos'}, status=400)
+
+        favorito, creado = Favorito.objects.get_or_create(
+            usuario=request.user,
+            profesional_id=profesional_id
+        )
+
+        serializer = FavoritoSerializer(favorito)
+        return Response(serializer.data, status=201 if creado else 200)
+
+class FavoritoDetailView(APIView):
+
+    permission_classes = [IsAuthenticated]
+
+    def delete(self, request, pk):
+        favorito = Favorito.objects.filter(usuario=request.user, profesional_id=pk).first()
+
+        if favorito is None:
+            return Response({'error': 'Favorito no encontrado'}, status=404)
+
+        favorito.delete()
+        return Response(status=204)

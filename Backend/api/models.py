@@ -52,3 +52,10 @@ class Contacto(models.Model):
     mensaje = models.TextField(max_length=1000)
     fecha = models.DateTimeField(auto_now_add=True)
     usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE)
+
+class Favorito(models.Model):
+    usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE, related_name='favoritos')
+    profesional = models.ForeignKey(Usuario, on_delete=models.CASCADE, related_name='guardado_por')
+
+    class Meta:
+        unique_together = ('usuario', 'profesional')
