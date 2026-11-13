@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Rol, Oficio, Ubicacion, Usuario, Contacto
+from .models import Rol, Oficio, Ubicacion, Usuario, Contacto, Favorito
 from django.contrib.auth.hashers import make_password       # Se utiliza para encriptar la contraseña antes de guardarla en la base de datos
 from django.contrib.auth.password_validation import validate_password
 from django.core.exceptions import ValidationError as DjangoValidationError
@@ -71,3 +71,10 @@ class PerfilSerializer(serializers.ModelSerializer):
     class Meta:
         model = Usuario
         fields = ['nombre', 'email', 'dni', 'ubicacion', 'oficio']
+
+
+class FavoritoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Favorito
+        fields = '__all__'
+        read_only_fields = ['usuario']
