@@ -396,6 +396,7 @@ class ProfesionalesView(APIView):
             datos.append({
                 'id': profesional.id,
                 'nombre': profesional.nombre,
+                'email': profesional.email,
                 'rol': profesional.rol_id,
                 'oficio': profesional.oficio_id,
                 'ubicacion': profesional.ubicacion_id
