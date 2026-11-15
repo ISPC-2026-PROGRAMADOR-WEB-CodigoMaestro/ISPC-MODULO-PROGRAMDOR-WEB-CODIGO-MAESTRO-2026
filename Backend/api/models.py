@@ -9,6 +9,7 @@ class Rol(models.Model):
 
 class Oficio(models.Model):
     nombre_oficio = models.CharField(max_length=100, unique=True)
+    icono = models.CharField(max_length=20, default="🛠")
 
     def __str__(self):
         return self.nombre_oficio
