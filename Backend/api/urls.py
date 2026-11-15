@@ -1,6 +1,6 @@
 from django.urls import path
 
-from .views import (RolView, RolDetailView, OficioView, OficioDetailView, UbicacionView, UbicacionDetailView, UsuarioView, UsuarioDetailView, ProfesionalesView, LoginView, ContactoView)
+from .views import (RolView, RolDetailView, OficioView, OficioDetailView, UbicacionView, UbicacionDetailView, UsuarioView, UsuarioDetailView, ProfesionalesView, LoginView, ContactoView, FavoritoView, FavoritoDetailView)
 
 urlpatterns = [
 
@@ -25,6 +25,10 @@ urlpatterns = [
 
     ## PROFESIONALES
     path('profesionales/', ProfesionalesView.as_view()),
+
+    ## FAVORITOS
+    path('favoritos/', FavoritoView.as_view()),
+    path('favoritos/<int:pk>/', FavoritoDetailView.as_view()),
     
     ## LOGIN
     path('login/', LoginView.as_view()),
