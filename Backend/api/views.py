@@ -437,14 +437,17 @@ class UsuarioDetailView(APIView):
         return Response(serializer.data, status=200)
 
 
+    
     def put(self, request, pk):
 
-        if request.user.rol.nombre_rol != 'Administrador':
+        # Verificar permisos
+        if not self.tiene_permiso(request, pk):
             return Response(
                 {'error': 'No tenés permisos para modificar este usuario'},
                 status=403
             )
 
+        # Buscar usuario
         usuario = self.get_object(pk)
 
         if usuario is None:
@@ -453,54 +456,7 @@ class UsuarioDetailView(APIView):
                 status=404
             )
 
-        serializer = UsuarioSerializer(usuario, data=request.data)
-
-        if serializer.is_valid():
-            serializer.save()
-
-            # Registrar modificación administrativa exitosa
-            logger.info(
-                "Modificación de usuario - Administrador ID: %s - Usuario modificado ID: %s - Acción: PUT - Resultado: exitoso",
-                request.user.id,
-                pk
-            )
-
-            return Response(serializer.data, status=200)
-
-        return Response(serializer.errors, status=400)
-
-    
-    # MODIFICAR PARCIALMENTE UN USUARIO
-    # ADMINISTRADOR O PROPIETARIO DE LA CUENTA
-    
-    def patch(self, request, pk):
-
-        if not self.tiene_permiso(request, pk):
-            logger.warning(
-                "Modificación denegada - Usuario ID: %s - "
-                "Usuario objetivo ID: %s - Acción: PATCH",
-                request.user.id,
-                pk
-            )
-
-            return Response(
-                {
-                    'error':
-                    'No tenés permisos para modificar este usuario'
-                },
-                status=403
-            )
-
-        usuario = self.get_object(pk)
-
-        if usuario is None:
-            return Response(
-                {'error': 'Usuario no encontrado'},
-                status=404
-            )
-
-        # ACTUALIZACIÓN PARCIAL
-
+        # Verificar rol
         es_administrador = (
             request.user.rol is not None
             and request.user.rol.nombre_rol == 'Administrador'
@@ -509,10 +465,11 @@ class UsuarioDetailView(APIView):
         if es_administrador:
             serializer = UsuarioSerializer(
                 usuario,
-                data=request.data,
-                partial=True
+                data=request.data
             )
+
         else:
+            # Campos permitidos para usuarios estándar
             campos_permitidos = {
                 'nombre',
                 'email',
@@ -529,32 +486,25 @@ class UsuarioDetailView(APIView):
 
             serializer = PerfilSerializer(
                 usuario,
-                data=request.data,
-                partial=True
+                data=request.data
             )
 
+        # Validar y guardar
         if serializer.is_valid():
             serializer.save()
 
             logger.info(
                 "Modificación de usuario - Usuario ID: %s - "
-                "Usuario modificado ID: %s - Acción: PATCH - "
+                "Usuario modificado ID: %s - Acción: PUT - "
                 "Resultado: exitoso",
                 request.user.id,
                 pk
             )
 
-            return Response(
-                serializer.data,
-                status=200
-            )
+            return Response(serializer.data, status=200)
 
-        return Response(
-            serializer.errors,
-            status=400
-        )
-
-
+        return Response(serializer.errors, status=400)
+    
 
     def delete(self, request, pk):
 
