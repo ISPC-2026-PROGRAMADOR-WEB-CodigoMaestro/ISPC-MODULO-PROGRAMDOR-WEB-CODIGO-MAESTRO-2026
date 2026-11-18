@@ -1,10 +1,12 @@
-import jwt
+import jwt, logging
 
 from django.conf import settings
 from rest_framework.authentication import BaseAuthentication
 from rest_framework.exceptions import AuthenticationFailed
 
 from .models import Usuario
+
+logger = logging.getLogger(__name__)
 
 
 class JWTAuthentication(BaseAuthentication):
@@ -19,6 +21,13 @@ class JWTAuthentication(BaseAuthentication):
         partes = authorization.split()
 
         if len(partes) != 2 or partes[0].lower() != 'bearer':
+            
+            logger.warning(
+                "Autenticacion JWT fallida - Recurso: %s - Accion %s - Resultado: formato de autorización inválido",
+                request.path,
+                request.method
+            )
+
             raise AuthenticationFailed('Formato de autorización inválido')
 
         token = partes[1]
@@ -32,12 +41,32 @@ class JWTAuthentication(BaseAuthentication):
             )
 
         except jwt.ExpiredSignatureError:
+
+            logger.warning(
+                "Autenticacion JWT fallida - Recurso: %s - Accion %s - Resultado: token expirado",
+                request.path,
+                request.method
+            )
+
             raise AuthenticationFailed('El token ha expirado')
 
         except jwt.InvalidTokenError:
+            
+            logger.warning(
+                "Autenticacion JWT fallida - Recurso: %s - Accion %s - Resultado: token inválido",
+                request.path,
+                request.method
+            )
             raise AuthenticationFailed('Token inválido')
 
         if payload.get('type') != 'access':
+            
+            logger.warning(
+                "Autenticacion JWT fallida - Recurso: %s - Accion %s - Resultado: tipo de token inválido",
+                request.path,
+                request.method
+            )
+
             raise AuthenticationFailed('Tipo de token inválido')
 
         try:
@@ -46,6 +75,13 @@ class JWTAuthentication(BaseAuthentication):
             )
 
         except (Usuario.DoesNotExist, ValueError, TypeError):
+            
+            logger.warning(
+                "Autenticacion JWT fallida - Recurso: %s - Accion %s - Resultado: usuario no encontrado",
+                request.path,
+                request.method
+            )
+
             raise AuthenticationFailed('Usuario no encontrado')
 
         return (usuario, token)

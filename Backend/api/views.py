@@ -731,7 +731,7 @@ class LoginView(APIView):
                 payload = {
                     'sub': str(usuario.id),
                     'iat': ahora,
-                    'exp': ahora + timedelta(minutes=30),
+                    'exp': ahora + timedelta(hours=4),
                     'type': 'access'
                 }
 
