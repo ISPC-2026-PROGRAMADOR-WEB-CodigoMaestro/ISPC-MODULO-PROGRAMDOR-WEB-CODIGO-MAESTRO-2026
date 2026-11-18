@@ -60,3 +60,14 @@ class Favorito(models.Model):
 
     class Meta:
         unique_together = ('usuario', 'profesional')
+
+class ExperienciaLaboral(models.Model):
+    usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE)
+    puesto = models.CharField(max_length=100)
+    empresa = models.CharField(max_length=100)
+    anio_inicio = models.PositiveIntegerField()
+    anio_fin = models.PositiveIntegerField(null=True, blank=True)
+    descripcion = models.TextField(max_length=500, blank=True)
+
+    def __str__(self):
+        return f"{self.puesto} - {self.usuario.nombre}"
