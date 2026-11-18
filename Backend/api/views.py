@@ -29,6 +29,12 @@ class RolView(APIView):
     def post(self, request):
 
         if request.user.rol.nombre_rol != 'Administrador':
+
+            logger.warning(
+                "Intento de creacion de rol denegada - Usuario ID: %s - Recurso: roles - Accion POST",
+                request.user.id
+            )
+
             return Response(
                 {'error': 'Solo los administradores pueden crear roles'},
                 status=403
@@ -38,6 +44,12 @@ class RolView(APIView):
 
         if serializer.is_valid():
             serializer.save()
+
+            logger.info(
+            "Creacion de rol - Usuario ID: %s - Recurso: roles - Accion POST",
+            request.user.id
+        )
+            
             return Response(serializer.data, status=201)
 
         return Response(serializer.errors, status=400)
@@ -45,6 +57,14 @@ class RolView(APIView):
 
 class RolDetailView(APIView):
 
+    def get_permissions(self):
+        if self.request.method == 'GET':
+            return [AllowAny()]
+        return [IsAuthenticated()]
+
+    def es_administrador(self, request):
+        return request.user.rol.nombre_rol == 'Administrador'
+    
     def get_object(self, pk):
         try:
             return Rol.objects.get(pk=pk)
@@ -64,6 +84,13 @@ class RolDetailView(APIView):
         rol = self.get_object(pk)
 
         if not self.es_administrador(request):
+
+            logger.warning(
+                "Intento de modificacion de rol denegada - Usuario ID: %s - Recurso: rol ID %s - Accion PUT",
+                request.user.id,
+                pk
+            )
+
             return Response(
                 {'error': 'Solo los administradores pueden modificar roles'},
                 status=403
@@ -76,14 +103,28 @@ class RolDetailView(APIView):
 
         if serializer.is_valid():
             serializer.save()
+
+            logger.info(
+                "Modificacion de rol - Usuario ID: %s - Recurso: rol ID %s - Accion PUT",
+                request.user.id,
+                pk
+            )
+
             return Response(serializer.data, status=200)
 
         return Response(serializer.errors, status=400)
 
     def delete(self, request, pk):
         rol = self.get_object(pk)
-
+        
         if not self.es_administrador(request):
+
+            logger.warning(
+                "Intento de eliminacion de rol denegada - Usuario ID: %s - Recurso: rol ID %s - Accion DELETE",
+                request.user.id,
+                pk
+            )
+
             return Response(
                 {'error': 'Solo los administradores pueden eliminar roles'},
                 status=403
@@ -93,16 +134,16 @@ class RolDetailView(APIView):
             return Response({'error': 'Rol no encontrado'}, status=404)
 
         rol.delete()
+
+        logger.info(
+            "Eliminacion de rol - Usuario ID: %s - Recurso: rol ID %s - Accion DELETE",
+            request.user.id,
+            pk
+        )
+
         return Response({'mensaje': 'Rol eliminado'}, status=204)
 
-    def get_permissions(self):
-        if self.request.method == 'GET':
-            return [AllowAny()]
-        return [IsAuthenticated()]
-
-    def es_administrador(self, request):
-        return request.user.rol.nombre_rol == 'Administrador'
-
+    
 ## OFICIO
 
 class OficioView(APIView):
@@ -121,6 +162,12 @@ class OficioView(APIView):
     def post(self, request):
 
         if request.user.rol.nombre_rol != 'Administrador':
+
+            logger.warning(
+                "Intento de creacion de oficio denegada - Usuario ID %s - Recurso: oficios - Accion POST",
+                request.user.id
+            )
+            
             return Response(
                 {'error': 'Solo los administradores pueden crear oficios'},
                 status=403
@@ -130,6 +177,12 @@ class OficioView(APIView):
 
         if serializer.is_valid():
             serializer.save()
+
+            logger.info(
+                "Creacion de oficio - Usuario ID: %s - Recurso: oficios - Accion POST",
+                request.user.id
+            )
+
             return Response(serializer.data, status=201)
 
         return Response(serializer.errors, status=400)
@@ -170,6 +223,13 @@ class OficioDetailView(APIView):
     def put(self, request, pk):
 
         if not self.es_administrador(request):
+
+            logger.warning(
+                "Intento de modificacion de oficio denegada - Usuario ID: %s - Recurso: oficio ID %s - Accion PUT",
+                request.user.id,
+                pk
+            )
+
             return Response(
                 {'error': 'Solo los administradores pueden modificar oficios'},
                 status=403
@@ -187,6 +247,13 @@ class OficioDetailView(APIView):
 
         if serializer.is_valid():
             serializer.save()
+
+            logger.info(
+                "Modificacion de oficio - Usuario ID: %s - Recurso: oficio ID %s - Accion PUT",
+                request.user.id,
+                pk
+            )
+
             return Response(serializer.data, status=200)
 
         return Response(serializer.errors, status=400)
@@ -194,6 +261,13 @@ class OficioDetailView(APIView):
     def delete(self, request, pk):
 
         if not self.es_administrador(request):
+
+            logger.warning(
+                "Intento de eliminacion de oficio denegada - Usuario ID: %s - Recurso: oficio ID %s - Accion DELETE",
+                request.user.id,
+                pk
+            )
+
             return Response(
                 {'error': 'Solo los administradores pueden eliminar oficios'},
                 status=403
@@ -208,7 +282,15 @@ class OficioDetailView(APIView):
             )
 
         oficio.delete()
+
+        logger.info(
+            "Eliminacion de oficio - Usuario ID: %s - Recurso: oficio ID %s - Accion DELETE",
+            request.user.id,
+            pk
+        )
+
         return Response(status=204)
+
 
 ## UBICACION
 
@@ -234,6 +316,12 @@ class UbicacionView(APIView):
     def post(self, request):
 
         if not self.es_administrador(request):
+
+            logger.warning(
+                "Intento de creacion de ubicacion denegada - Usuario ID: %s - Recurso: ubicaciones - Accion POST - Resultado: denegado",
+                request.user.id
+            )
+
             return Response(
                 {'error': 'Solo los administradores pueden crear ubicaciones'},
                 status=403
@@ -242,7 +330,14 @@ class UbicacionView(APIView):
         serializer = UbicacionSerializer(data=request.data)
 
         if serializer.is_valid():
-            serializer.save()
+            ubicacion = serializer.save()
+
+            logger.info(
+                "Creacion de ubicacion - Usuario ID: %s - Ubicacion creada ID: %s - Accion POST - Resultado: exitoso",
+                request.user.id,
+                ubicacion.id
+            )
+
             return Response(serializer.data, status=201)
 
         return Response(serializer.errors, status=400)
@@ -283,6 +378,13 @@ class UbicacionDetailView(APIView):
     def put(self, request, pk):
 
         if not self.es_administrador(request):
+
+            logger.warning(
+                "Intento de modificacion de ubicacion denegada - Usuario ID: %s - Recurso: ubicacion ID %s - Accion PUT - Resultado: denegado",
+                request.user.id,
+                pk
+            )
+            
             return Response(
                 {'error': 'Solo los administradores pueden modificar ubicaciones'},
                 status=403
@@ -300,6 +402,13 @@ class UbicacionDetailView(APIView):
 
         if serializer.is_valid():
             serializer.save()
+            
+            logger.info(
+                "Modificacion de ubicacion - Usuario ID: %s - Ubicacion modificada ID: %s - Accion PUT - Resultado: exitoso",
+                request.user.id,
+                pk
+            )
+            
             return Response(serializer.data, status=200)
 
         return Response(serializer.errors, status=400)
@@ -307,6 +416,13 @@ class UbicacionDetailView(APIView):
     def delete(self, request, pk):
 
         if not self.es_administrador(request):
+            
+            logger.warning(
+                "Intento de eliminacion de ubicacion denegada - Usuario ID: %s - Recurso: ubicacion ID %s - Accion DELETE - Resultado: denegado",
+                request.user.id,
+                pk
+            )
+            
             return Response(
                 {'error': 'Solo los administradores pueden eliminar ubicaciones'},
                 status=403
@@ -321,7 +437,16 @@ class UbicacionDetailView(APIView):
             )
 
         ubicacion.delete()
+
+        logger.info(
+            "Eliminacion de ubicacion - Usuario ID: %s - Ubicacion eliminada ID: %s - Accion DELETE - Resultado: exitoso",
+            request.user.id,
+            pk
+        )
+
         return Response(status=204)
+
+
 
 ## CONTACTO
 
@@ -334,7 +459,15 @@ class ContactoView(APIView):
         serializer = ContactoSerializer(data=request.data)
 
         if serializer.is_valid():
-            serializer.save(usuario=request.user)
+
+            contacto = serializer.save(usuario=request.user)
+
+            logger.info(
+                "Creación de contacto - Usuario ID: %s - Contacto creado ID: %s - Acción: POST - Resultado: exitoso",
+                request.user.id,
+                contacto.id
+            )
+
             return Response(serializer.data, status=201)
 
         return Response(serializer.errors, status=400)
@@ -355,7 +488,7 @@ class UsuarioView(APIView):
         if request.user.rol.nombre_rol != 'Administrador':
 
             logger.warning(
-                "Acceso denegado - Usuario ID: %s - Recurso: listado de usuarios - Acción: GET",
+                "Acceso denegado - Usuario ID: %s - Recurso: listado de usuarios - Acción: GET - Resultado: denegado",
                 request.user.id
             )
 
@@ -373,7 +506,14 @@ class UsuarioView(APIView):
         serializer = UsuarioSerializer(data=request.data)
 
         if serializer.is_valid():
-            serializer.save()
+            usuario = serializer.save()
+
+            logger.info(
+                "Registro de usuario - Usuario creado ID: %s - Recurso: usuarios - Acción: POST - Resultado: exitoso",
+                request.user.id,
+                usuario.id
+            )
+
             return Response(serializer.data, status=201)
 
         return Response(serializer.errors, status=400)
@@ -423,6 +563,13 @@ class UsuarioDetailView(APIView):
     def get(self, request, pk):
 
         if not self.tiene_permiso(request, pk):
+
+            logger.warning(
+                "Acceso denegado - Usuario ID: %s - Recurso: usuario ID %s - Acción: GET - Resultado: denegado",
+                request.user.id,
+                pk
+            )
+
             return Response(
                 {'error': 'No tenés permisos para consultar este usuario'},
                 status=403
@@ -434,12 +581,25 @@ class UsuarioDetailView(APIView):
             return Response({'error': 'Usuario no encontrado'}, status=404)
 
         serializer = UsuarioSerializer(usuario)
+        
+        logger.info(
+            "Consulta de usuario - Usuario ID: %s - Usuario consultado ID: %s - Acción: GET - Resultado: exitoso",
+            request.user.id,
+            pk
+        )
+
         return Response(serializer.data, status=200)
-
-
+    
     def put(self, request, pk):
 
-        if request.user.rol.nombre_rol != 'Administrador':
+        if not self.tiene_permiso(request, pk):
+
+            logger.warning(
+                "Modificación denegada - Usuario ID: %s - Recurso: usuario ID %s - Acción: PUT - Resultado: denegado",
+                request.user.id,
+                pk
+            )
+
             return Response(
                 {'error': 'No tenés permisos para modificar este usuario'},
                 status=403
@@ -453,54 +613,6 @@ class UsuarioDetailView(APIView):
                 status=404
             )
 
-        serializer = UsuarioSerializer(usuario, data=request.data)
-
-        if serializer.is_valid():
-            serializer.save()
-
-            # Registrar modificación administrativa exitosa
-            logger.info(
-                "Modificación de usuario - Administrador ID: %s - Usuario modificado ID: %s - Acción: PUT - Resultado: exitoso",
-                request.user.id,
-                pk
-            )
-
-            return Response(serializer.data, status=200)
-
-        return Response(serializer.errors, status=400)
-
-    
-    # MODIFICAR PARCIALMENTE UN USUARIO
-    # ADMINISTRADOR O PROPIETARIO DE LA CUENTA
-    
-    def patch(self, request, pk):
-
-        if not self.tiene_permiso(request, pk):
-            logger.warning(
-                "Modificación denegada - Usuario ID: %s - "
-                "Usuario objetivo ID: %s - Acción: PATCH",
-                request.user.id,
-                pk
-            )
-
-            return Response(
-                {
-                    'error':
-                    'No tenés permisos para modificar este usuario'
-                },
-                status=403
-            )
-
-        usuario = self.get_object(pk)
-
-        if usuario is None:
-            return Response(
-                {'error': 'Usuario no encontrado'},
-                status=404
-            )
-
-        # ACTUALIZACIÓN PARCIAL
-
         es_administrador = (
             request.user.rol is not None
             and request.user.rol.nombre_rol == 'Administrador'
@@ -509,9 +621,9 @@ class UsuarioDetailView(APIView):
         if es_administrador:
             serializer = UsuarioSerializer(
                 usuario,
-                data=request.data,
-                partial=True
+                data=request.data
             )
+
         else:
             campos_permitidos = {
                 'nombre',
@@ -522,6 +634,13 @@ class UsuarioDetailView(APIView):
             }
 
             if not set(request.data.keys()).issubset(campos_permitidos):
+
+                logger.warning(
+                    "Intento de modificación de usuario denegado - Usuario ID: %s - Recurso: usuario ID %s - Acción: PUT - Resultado: denegado",
+                    request.user.id,
+                    pk
+                )
+
                 return Response(
                     {'error': 'Intentaste modificar campos no permitidos'},
                     status=403
@@ -529,39 +648,29 @@ class UsuarioDetailView(APIView):
 
             serializer = PerfilSerializer(
                 usuario,
-                data=request.data,
-                partial=True
+                data=request.data
             )
 
         if serializer.is_valid():
             serializer.save()
 
             logger.info(
-                "Modificación de usuario - Usuario ID: %s - "
-                "Usuario modificado ID: %s - Acción: PATCH - "
-                "Resultado: exitoso",
+                "Modificación de usuario - Usuario ID: %s - Usuario modificado ID: %s - Acción: PUT - Resultado: exitoso",
                 request.user.id,
                 pk
             )
 
-            return Response(
-                serializer.data,
-                status=200
-            )
+            return Response(serializer.data, status=200)
 
-        return Response(
-            serializer.errors,
-            status=400
-        )
-
-
+        return Response(serializer.errors, status=400)
+    
 
     def delete(self, request, pk):
 
         if not self.tiene_permiso(request, pk):
 
             logger.warning(
-                "Eliminación denegada - Usuario ID: %s - Recurso: usuario ID %s - Acción: DELETE",
+                "Eliminación denegada - Usuario ID: %s - Recurso: usuario ID %s - Acción: DELETE - Resultado: denegado",
                 request.user.id,
                 pk
             )
@@ -604,7 +713,7 @@ class LoginView(APIView):
         if not isinstance(email, str) or not isinstance(contrasena, str) or not email or not contrasena:
 
             logger.warning(
-                "Intento de inicio de sesión fallido - Campos inválidos o vacíos"
+                "Intento de inicio de sesion fallido - Recurso: login - Accion POST - Resultado: datos invalidos"
             )
 
             return Response(
@@ -622,7 +731,7 @@ class LoginView(APIView):
                 payload = {
                     'sub': str(usuario.id),
                     'iat': ahora,
-                    'exp': ahora + timedelta(minutes=30),
+                    'exp': ahora + timedelta(hours=4),
                     'type': 'access'
                 }
 
@@ -633,7 +742,7 @@ class LoginView(APIView):
                 )
 
                 logger.info(
-                    "Inicio de sesión exitoso - Usuario ID: %s",
+                    "Inicio de sesión - Usuario ID: %s - Recurso: login - Accion: POST - Resultado: exitoso",
                     usuario.id
                 )
 
@@ -648,7 +757,8 @@ class LoginView(APIView):
                     }, status=200)
 
             logger.warning(
-                "Intento de inicio de sesión fallido - Contraseña incorrecta"
+                "Intento de inicio de sesión fallido - Usuario ID: %s - Recurso: login - Accion: POST - Resultado: credenciales incorrectas",
+                usuario.id
             )
 
             return Response(
@@ -657,7 +767,7 @@ class LoginView(APIView):
         except Usuario.DoesNotExist:
 
             logger.warning(
-                "Intento de inicio de sesión fallido - Usuario inexistente"
+                "Intento de inicio de sesión fallido - Recurso: login - Accion: POST - Resultado: usuario no encontrado"
             )
 
             return Response(
