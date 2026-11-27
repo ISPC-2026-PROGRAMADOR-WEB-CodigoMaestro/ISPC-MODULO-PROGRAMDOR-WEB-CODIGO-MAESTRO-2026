@@ -1,6 +1,6 @@
 from django.urls import path
 
-from .views import (RolView, RolDetailView, OficioView, OficioDetailView, UbicacionView, UbicacionDetailView, UsuarioView, UsuarioDetailView, ProfesionalesView, LoginView, ContactoView, FavoritoView, FavoritoDetailView, ExperienciaLaboralView, ExperienciaLaboralDetailView, ExperienciasProfesionalView)
+from .views import (RolView, RolDetailView, OficioView, OficioDetailView, UbicacionView, UbicacionDetailView, UsuarioView, UsuarioDetailView, ProfesionalesView, LoginView, ContactoView, ExperienciaLaboralView, ExperienciaLaboralDetailView, ExperienciasProfesionalView)
 
 urlpatterns = [
 
@@ -30,10 +30,6 @@ urlpatterns = [
     path('experiencias-laborales/', ExperienciaLaboralView.as_view()),
     path('experiencias-laborales/<int:pk>/', ExperienciaLaboralDetailView.as_view()),
     path('profesionales/<int:pk>/experiencias/', ExperienciasProfesionalView.as_view()),
-
-    ## FAVORITOS
-    path('favoritos/', FavoritoView.as_view()),
-    path('favoritos/<int:pk>/', FavoritoDetailView.as_view()),
     
     ## LOGIN
     path('login/', LoginView.as_view()),
