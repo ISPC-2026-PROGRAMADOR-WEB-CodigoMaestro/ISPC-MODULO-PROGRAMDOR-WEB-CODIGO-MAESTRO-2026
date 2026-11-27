@@ -3,8 +3,8 @@ from datetime import datetime, timedelta, timezone
 from django.conf import settings
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from .models import Rol, Oficio, Ubicacion, Usuario, Favorito
-from .serializers import (RolSerializer, OficioSerializer, UbicacionSerializer, UsuarioSerializer, ContactoSerializer, PerfilSerializer, FavoritoSerializer)
+from .models import Rol, Oficio, Ubicacion, Usuario, ExperienciaLaboral
+from .serializers import (RolSerializer, OficioSerializer, UbicacionSerializer, UsuarioSerializer, ContactoSerializer, PerfilSerializer, ExperienciaLaboralSerializer)
 from django.contrib.auth.hashers import check_password         # Se utiliza para verificar la contraseña durante el proceso de login
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.throttling import AnonRateThrottle
@@ -774,43 +774,136 @@ class LoginView(APIView):
                 {'error': 'Credenciales incorrectas'}, status=401)
 
 
-## FAVORITOS
+## EXPERIENCIA LABORAL
 
-class FavoritoView(APIView):
+class ExperienciaLaboralView(APIView):
 
     permission_classes = [IsAuthenticated]
 
     def get(self, request):
-        favoritos = Favorito.objects.filter(usuario=request.user)
-        serializer = FavoritoSerializer(favoritos, many=True)
+        experiencias = ExperienciaLaboral.objects.filter(usuario=request.user)
+        serializer = ExperienciaLaboralSerializer(experiencias, many=True)
         return Response(serializer.data, status=200)
 
     def post(self, request):
-        profesional_id = request.data.get('profesional')
+        if request.user.oficio_id is None:
+            return Response(
+                {'error': 'Solo los profesionales pueden agregar experiencias laborales'},
+                status=403
+            )
 
-        if not Usuario.objects.filter(id=profesional_id, rol__nombre_rol='Estándar', oficio__isnull=False).exists():
-            return Response({'error': 'Profesional no encontrado'}, status=404)
+        serializer = ExperienciaLaboralSerializer(data=request.data)
 
-        if str(profesional_id) == str(request.user.id):
-            return Response({'error': 'No podés agregarte a favoritos'}, status=400)
+        if serializer.is_valid():
+            experiencia = serializer.save(usuario=request.user)
 
-        favorito, creado = Favorito.objects.get_or_create(
-            usuario=request.user,
-            profesional_id=profesional_id
-        )
+            logger.info(
+                "Creacion de experiencia laboral - Usuario ID: %s - Experiencia ID: %s - Accion POST",
+                request.user.id,
+                experiencia.id
+            )
 
-        serializer = FavoritoSerializer(favorito)
-        return Response(serializer.data, status=201 if creado else 200)
+            return Response(serializer.data, status=201)
 
-class FavoritoDetailView(APIView):
+        return Response(serializer.errors, status=400)
+
+
+class ExperienciaLaboralDetailView(APIView):
 
     permission_classes = [IsAuthenticated]
 
+    def get_object(self, pk):
+        try:
+            return ExperienciaLaboral.objects.get(pk=pk)
+        except ExperienciaLaboral.DoesNotExist:
+            return None
+
+    def get(self, request, pk):
+        experiencia = self.get_object(pk)
+
+        if experiencia is None:
+            return Response({'error': 'Experiencia laboral no encontrada'}, status=404)
+
+        serializer = ExperienciaLaboralSerializer(experiencia)
+        return Response(serializer.data, status=200)
+
+    def put(self, request, pk):
+        experiencia = self.get_object(pk)
+
+        if experiencia is None:
+            return Response({'error': 'Experiencia laboral no encontrada'}, status=404)
+
+        if experiencia.usuario_id != request.user.id:
+            logger.warning(
+                "Modificacion de experiencia laboral denegada - Usuario ID: %s - Experiencia ID: %s - Accion PUT",
+                request.user.id,
+                pk
+            )
+
+            return Response(
+                {'error': 'No tenés permisos para modificar esta experiencia laboral'},
+                status=403
+            )
+
+        serializer = ExperienciaLaboralSerializer(experiencia, data=request.data)
+
+        if serializer.is_valid():
+            serializer.save()
+
+            logger.info(
+                "Modificacion de experiencia laboral - Usuario ID: %s - Experiencia ID: %s - Accion PUT",
+                request.user.id,
+                pk
+            )
+
+            return Response(serializer.data, status=200)
+
+        return Response(serializer.errors, status=400)
+
     def delete(self, request, pk):
-        favorito = Favorito.objects.filter(usuario=request.user, profesional_id=pk).first()
+        experiencia = self.get_object(pk)
 
-        if favorito is None:
-            return Response({'error': 'Favorito no encontrado'}, status=404)
+        if experiencia is None:
+            return Response({'error': 'Experiencia laboral no encontrada'}, status=404)
 
-        favorito.delete()
+        if experiencia.usuario_id != request.user.id:
+            logger.warning(
+                "Eliminacion de experiencia laboral denegada - Usuario ID: %s - Experiencia ID: %s - Accion DELETE",
+                request.user.id,
+                pk
+            )
+
+            return Response(
+                {'error': 'No tenés permisos para eliminar esta experiencia laboral'},
+                status=403
+            )
+
+        experiencia.delete()
+
+        logger.info(
+            "Eliminacion de experiencia laboral - Usuario ID: %s - Experiencia ID: %s - Accion DELETE",
+            request.user.id,
+            pk
+        )
+
         return Response(status=204)
+
+
+class ExperienciasProfesionalView(APIView):
+
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request, pk):
+        profesional = Usuario.objects.filter(
+            pk=pk,
+            rol__nombre_rol='Estándar',
+            oficio__isnull=False
+        ).first()
+
+        if profesional is None:
+            return Response({'error': 'Profesional no encontrado'}, status=404)
+
+        experiencias = ExperienciaLaboral.objects.filter(usuario=profesional)
+        serializer = ExperienciaLaboralSerializer(experiencias, many=True)
+
+        return Response(serializer.data, status=200)

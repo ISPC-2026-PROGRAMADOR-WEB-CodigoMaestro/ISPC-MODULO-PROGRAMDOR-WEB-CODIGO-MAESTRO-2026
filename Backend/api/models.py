@@ -54,9 +54,13 @@ class Contacto(models.Model):
     fecha = models.DateTimeField(auto_now_add=True)
     usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE)
 
-class Favorito(models.Model):
-    usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE, related_name='favoritos')
-    profesional = models.ForeignKey(Usuario, on_delete=models.CASCADE, related_name='guardado_por')
+class ExperienciaLaboral(models.Model):
+    usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE)
+    puesto = models.CharField(max_length=100)
+    empresa = models.CharField(max_length=100)
+    anio_inicio = models.PositiveIntegerField()
+    anio_fin = models.PositiveIntegerField(null=True, blank=True)
+    descripcion = models.TextField(max_length=500)
 
-    class Meta:
-        unique_together = ('usuario', 'profesional')
+    def __str__(self):
+        return f"{self.puesto} - {self.usuario.nombre}"
